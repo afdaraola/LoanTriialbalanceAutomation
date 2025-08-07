@@ -36,3 +36,4 @@ mydb.executemany(sql,values)
 conn.commit()
 
 print(str(mydb.rowcount) +" record count")
+print(str(mydb.lastrowid) + "Last row ID inserted")
