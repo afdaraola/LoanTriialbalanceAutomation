@@ -46,7 +46,7 @@ alignment = Alignment(horizontal='center', vertical='center')
 
 #greyout some rows 
 # Define the grey fill style
-grey_fill = PatternFill(start_color="D3D3D3", end_color="D3D3D3", fill_type="solid")
+grey_fill = PatternFill(start_color="D3D3D3", end_color="D3D3D3", fill_type="lightGray")
 
 grey_fill_excptn_area = PatternFill(start_color="d4ebf2", end_color="d4ebf2", fill_type="solid")
 
@@ -123,7 +123,7 @@ cell_range = sheetname['A2:H2']
 # Apply the border to each cell in the range
 for row in sheetname['A7:H7']:
     for cell in row:
-        cell.border = thick_border
+        cell.border = thin_border
         cell.fill = grey_fill
 
 #fill the title 
@@ -131,26 +131,6 @@ for row in cell_range:
     for cell in row:
         cell.fill = grey_fill
 
-# Define the range of cells to apply borders 
-sheet_range = sheetname['B3:B53']
-
-# Apply the border to each cell in the range entire cell
-for row in sheet_range:
-   for cell in row:
-        cell.border = right_border
-
-for row in sheetname['D3:D53']:
-   for cell in row:
-        cell.border = right_border
-        
-for row in sheetname['F3:F53']:
-   for cell in row:
-        cell.border = right_border
-        
-for row in sheetname['H3:H53']:
-   for cell in row:
-        cell.border = right_border
-        
 
 # Center-align the content of the cell
 sheetname['A2'].alignment = Alignment(horizontal='center', vertical='center')
@@ -158,6 +138,8 @@ sheetname['A2'].alignment = Alignment(horizontal='center', vertical='center')
 # Apply bold formatting to the cell
 bold_font = Font(bold=True)
 sheetname['A2'].font = bold_font
+
+
 
  #set parameters 
 sheetname['A3'] = "CLIENT NAME:"
@@ -204,172 +186,344 @@ sheetname['G7'] = "VARIANCES- SEE EXPLANATIONS BELOW"
 sheetname['G7'].font = bold_font
 # Center-align the content of the cell
 sheetname['G7'].alignment = alignment
+
+
  
 list_with_variance={}
+tRow = 8
  
-sheetname['A8'] = "Principal Balance"
-sheetname['E8'] = "CM_TRIAL"
-sheetname['E9'] = "CN_TRIAL"
-sheetname['E10'] = "MG_TRIAL"
-sheetname['G8'] = "(1)"
-sheetname['H8'] = "=D8+D9+D10-F8-F9-F10"
+sheetname[f'A{tRow}'] = "Principal Balance"
+sheetname[f'E{tRow}'] = "CM_TRIAL"
+sheetname[f'E{tRow+1}'] = "CN_TRIAL"
+sheetname[f'E{tRow+2}'] = "MG_TRIAL"
+sheetname[f'G{tRow}'] = "(1)"
+sheetname[f'H{tRow}'] = f"=D{tRow}+D{tRow+1}+D{tRow+2}-F{tRow}-F{tRow+1}-F{tRow+2}"
 #format currency
-sheetname['H8'].number_format = formattingAmount 
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['PRINCIPALBALANCE'] = f'H{tRow}'
 
-list_with_variance['PRINCIPALBALANCE'] = 'H8'
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border   
 
-sheetname['A11'] = "Accrued Interest"
-sheetname['E11'] = "CM_TRIAL"
-sheetname['E12'] = "CN_TRIAL"
-sheetname['E13'] = "MG_TRIAL"
-sheetname['G11'] = "(2)"
+tRow = tRow+3
 
-sheetname['A14'] = "Non-Accrued Interest"
-sheetname['E14'] = "CM_TRIAL"
-sheetname['E15'] = "CN_TRIAL"
-sheetname['E16'] = "MG_TRIAL"
-sheetname['H11'] = "=D11+D12+D13-F11-F12-F13"
+sheetname[f'A{tRow}'] = "Accrued Interest"
+sheetname[f'E{tRow}'] = "CM_TRIAL"
+sheetname[f'E{tRow+1}'] = "CN_TRIAL"
+sheetname[f'E{tRow+2}'] = "MG_TRIAL"
+sheetname[f'G{tRow}'] = "(2)"
+
+sheetname[f'A{tRow+3}'] = "Non-Accrued Interest"
+sheetname[f'E{tRow+3}'] = "CM_TRIAL"
+sheetname[f'E{tRow+4}'] = "CN_TRIAL"
+sheetname[f'E{tRow+5}'] = "MG_TRIAL"
+sheetname[f'H{tRow}'] = f"=D{tRow}+D{tRow+1}+D{tRow+2}-F{tRow}-F{tRow+1}-F{tRow+2}-F{tRow+3}-f{tRow+4}-f{tRow+5}"
 #format currency
-sheetname['H11'].number_format = formattingAmount 
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['ACCRUEDINTEREST'] = f'H{tRow}'
 
-list_with_variance['ACCRUEDINTEREST'] = 'H11'
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border   
 
-sheetname['A17'] = "Escrow Balance"
-sheetname['E17'] = "CM_TRIAL"
-sheetname['E18'] = "CN_TRIAL"
-sheetname['E19'] = "MG_TRIAL"
-sheetname['G17'] = "(3)"
-sheetname['H17'] = "=D17+D18+D19-F17-F18-F19"
+tRow = tRow+6
+
+sheetname[f'A{tRow}'] = "Escrow Balance"
+sheetname[f'E{tRow}'] = "CM_TRIAL"
+sheetname[f'E{tRow+1}'] = "CN_TRIAL"
+sheetname[f'E{tRow+2}'] = "MG_TRIAL"
+sheetname[f'G{tRow}'] = "(3)"
+sheetname[f'H{tRow}'] = f"=D{tRow}+D{tRow+1}+D{tRow+2}-F{tRow}-F{tRow+1}-F{tRow+2}"
 #format currency
-sheetname['H17'].number_format = formattingAmount 
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['ESCROWBALANCE'] = f'H{tRow}'
 
-list_with_variance['ESCROWBALANCE'] = 'H17'
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
 
+tRow = tRow+3
 
-
-sheetname['A20'] = "Late Charge"
-sheetname['E20'] = "CM_TRIAL"
-sheetname['E21'] = "CN_TRIAL"
-sheetname['E22'] = "MG_TRIAL"
-sheetname['G20'] = "(4)"
-sheetname['H20'] = "=D20+D21+D22-F20-F21-F22"
-
+sheetname[f'A{tRow}'] = "Loans In Process (LIP)"
+sheetname[f'E{tRow}'] = "CM_TRIAL"
+sheetname[f'E{tRow+1}'] = "CN_TRIAL"
+sheetname[f'E{tRow+2}'] = "MG_TRIAL"
+sheetname[f'G{tRow}'] =  "(4)"
+sheetname[f'H{tRow}'] =  f"=D{tRow}+D{tRow+1}+D{tRow+2}-F{tRow}-F{tRow+1}-F{tRow+2}"
 #format currency
-sheetname['H20'].number_format = formattingAmount 
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['LOANSINPROCESS'] = f'H{tRow}'
 
-list_with_variance['LATECHARGES'] = 'H20'
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
 
-sheetname['A23'] = "Defferred Fees"
-sheetname['E23'] = "LN_AMRT" 
-sheetname['G23'] = "(5)"
-sheetname['H23'] = "=D23+D23+D25-F23"
+tRow = tRow+3
 
-#format currency
-sheetname['H23'].number_format = formattingAmount 
-
-list_with_variance['DEFFEREDFEES'] = 'H23'
-
-sheetname['A26'] = "Defferred Costs"
-sheetname['E26'] = "LN_AMRT" 
-sheetname['G26'] = "(6)"
-sheetname['H26'] = "=D26+D27+D28-F27"
-#format currency
-sheetname['H26'].number_format = formattingAmount 
-
-list_with_variance['DEFFEREDCOSTS'] = 'H26'
-
-sheetname['A29'] = "Original Comm (LOC)"
-sheetname['E29'] = "CM_TRIAL"
-sheetname['E30'] = "CN_TRIAL"
-sheetname['E31'] = "MG_TRIAL"
-sheetname['E32'] = "ML_TRIAL"
-sheetname['G29'] = "(7)"
-sheetname['H29'] = "=D29+D30+D31-F29-F30-F31-F32"
-
-#format currency
-sheetname['H29'].number_format = formattingAmount 
-
-list_with_variance['CREDITLIMIT'] = 'H29'
-
-sheetname['A33'] = "Charge-off Balance"
-sheetname['E33'] = "CM_TRIAL"
-sheetname['E34'] = "CN_TRIAL"
-sheetname['E35'] = "MG_TRIAL"
-sheetname['G33'] = "(8)"
-sheetname['H33'] = "=D33+D34+D35-F33-F34-F35" 
-#format currency
-sheetname['H33'].number_format = formattingAmount 
-
-list_with_variance['CHARGEOFFBALANCE'] = 'H33'
-
-
-sheetname['A36'] = "Unapplied Balance"
-sheetname['E36'] = "CM_TRIAL"
-sheetname['E37'] = "CN_TRIAL"
-sheetname['E38'] = "MG_TRIAL"
-sheetname['G36'] = "(9)"
-sheetname['H36'] = "=D36+D37+D38-F36-F37-F38" 
-#format currency
-sheetname['H36'].number_format = formattingAmount 
-
-list_with_variance['UNAPPLIEDBALANCE'] = 'H36'
-
-sheetname['A39'] = "Investor Balance"
-sheetname['E39'] = "CM_TRIAL/IL_TRIAL"
-sheetname['E40'] = "CN_TRIAL/IL_TRIAL"
-sheetname['E41'] = "MG_TRIAL/IL_TRIAL"
-sheetname['G39'] = "(10)"
-sheetname['H39'] = "=D39+D40+D41-F39-F40-F41" 
-#format currency
-sheetname['H39'].number_format = formattingAmount 
-
-list_with_variance['INVESTORBALANCE'] = 'H39'
-
-sheetname['A42'] = "Participation"
-sheetname['E42'] = "CM_TRIAL"
-sheetname['E43'] = "CN_TRIAL"
-sheetname['E44'] = "MG_TRIAL"
-sheetname['G42'] = "(11)"
-sheetname['H42'] = "=D42+D43+D44-F42-F43-F44" 
+sheetname[f'A{tRow}'] = "Late Charge"
+sheetname[f'E{tRow}'] = "CM_TRIAL"
+sheetname[f'E{tRow+1}'] = "CN_TRIAL"
+sheetname[f'E{tRow+2}'] = "MG_TRIAL"
+sheetname[f'G{tRow}'] = "(5)"
+sheetname[f'H{tRow}'] =  f"=D{tRow}+D{tRow+1}+D{tRow+2}-F{tRow}-F{tRow+1}-F{tRow+2}"
 
 #format currency
-sheetname['H42'].number_format = formattingAmount 
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['LATECHARGES'] = f'H{tRow}'
 
-list_with_variance['PARTICIPATION'] = 'H42'
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
 
-sheetname['A45'] = "YTD Interest"
-sheetname['E45'] = "CM_TRIAL"
-sheetname['E46'] = "CN_TRIAL"
-sheetname['E47'] = "MG_TRIAL"
-sheetname['G45'] = "(12)"
-sheetname['H45'] = "=D45+D46+D47-F45-F46-F47" 
+tRow = tRow+3
 
-#format currency
-sheetname['H45'].number_format = formattingAmount 
-
-list_with_variance['YTDINTEREST'] = 'H45'
-
-sheetname['A48'] = "YTD Late Charge Paid"
-sheetname['E48'] = "MM_YTD"
-sheetname['G48'] = "(13)"
-sheetname['H48'] = "=D48-F48-F49-F50"
+sheetname[f'A{tRow}'] = "Defferred Fees"
+sheetname[f'E{tRow}'] = "LN_AMRT" 
+sheetname[f'G{tRow}'] = "(6)"
+sheetname[f'H{tRow}'] = f"=D{tRow}+D{tRow+1}+D{tRow+2}-F{tRow}"
 
 #format currency
-sheetname['H48'].number_format = formattingAmount 
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['DEFFEREDFEES'] = f'H{tRow}'
 
-list_with_variance['YTDLATECHARGEPAID'] = 'H48'
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
 
-sheetname['A51'] = "Shadow Accounting IPTP"
-sheetname['E51'] = "CM_TRIAL"
-sheetname['E52'] = "CN_TRIAL"
-sheetname['E53'] = "MG_TRIAL"
-sheetname['G51'] = "(14)"
-sheetname['H51'] = "=D45+D46+D47-F45-F46-F47" 
+tRow = tRow+3
+
+sheetname[f'A{tRow}'] = "Defferred Costs"
+sheetname[f'E{tRow}'] = "LN_AMRT" 
+sheetname[f'G{tRow}'] = "(7)"
+sheetname[f'H{tRow}'] = f"=D{tRow}+D{tRow+1}+D{tRow+2}-F{tRow}"
+#format currency
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['DEFFEREDCOSTS'] = f'H{tRow}'
+
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
+
+tRow = tRow+3
+
+sheetname[f'A{tRow}'] = "Original Comm (LOC)"
+sheetname[f'E{tRow}'] = "CM_TRIAL"
+sheetname[f'E{tRow+1}'] = "CN_TRIAL"
+sheetname[f'E{tRow+2}'] = "MG_TRIAL"
+sheetname[f'E{tRow+3}'] = "ML_TRIAL"
+sheetname[f'G{tRow}'] = "(8)"
+sheetname[f'H{tRow}'] = f"=D{tRow}+D{tRow+1}+D{tRow+2}-F{tRow}-F{tRow+1}-F{tRow+2}-F{tRow+3}"
 
 #format currency
-sheetname['H51'].number_format = formattingAmount 
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['CREDITLIMIT'] = f'H{tRow}'
 
-list_with_variance['SHADOWACCOUNTINGIPTP'] = 'H51'
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
+
+tRow = tRow+4
+
+sheetname[f'A{tRow}'] = "Charge-off Balance"
+sheetname[f'E{tRow}'] = "CM_TRIAL"
+sheetname[f'E{tRow+1}'] = "CN_TRIAL"
+sheetname[f'E{tRow+2}'] = "MG_TRIAL"
+sheetname[f'G{tRow}'] = "(9)"
+sheetname[f'H{tRow}'] =  f"=D{tRow}+D{tRow+1}+D{tRow+2}-F{tRow}-F{tRow+1}-F{tRow+2}"
+#format currency
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['CHARGEOFFBALANCE'] = f'H{tRow}'
+
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
+
+tRow = tRow+3
+
+sheetname[f'A{tRow}'] = "Unapplied Balance"
+sheetname[f'E{tRow}'] = "CM_TRIAL"
+sheetname[f'E{tRow+1}'] = "CN_TRIAL"
+sheetname[f'E{tRow+2}'] = "MG_TRIAL"
+sheetname[f'G{tRow}'] = "(10)"
+sheetname[f'H{tRow}'] = f"=D{tRow}+D{tRow+1}+D{tRow+2}-F{tRow}-F{tRow+1}-F{tRow+2}" 
+#format currency
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['UNAPPLIEDBALANCE'] = f'H{tRow}'
+
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
+
+tRow = tRow+3
+
+sheetname[f'A{tRow}'] = "Investor Balance"
+sheetname[f'E{tRow}'] = "CM_TRIAL/IL_TRIAL"
+sheetname[f'E{tRow+1}'] = "CN_TRIAL/IL_TRIAL"
+sheetname[f'E{tRow+2}'] = "MG_TRIAL/IL_TRIAL"
+sheetname[f'G{tRow}'] = "(11)"
+sheetname[f'H{tRow}'] = f"=D{tRow}+D{tRow+1}+D{tRow+2}-F{tRow}-F{tRow+1}-F{tRow+2}" 
+#format currency
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['INVESTORBALANCE'] = f'H{tRow}'
+
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
+
+tRow = tRow+3
+
+sheetname[f'A{tRow}'] = "Participation"
+sheetname[f'E{tRow}'] = "CM_TRIAL"
+sheetname[f'E{tRow+1}'] = "CN_TRIAL"
+sheetname[f'E{tRow+2}'] = "MG_TRIAL"
+sheetname[f'G{tRow}'] = "(12)"
+sheetname[f'H{tRow}'] = f"=D{tRow}+D{tRow+1}+D{tRow+2}-F{tRow}-F{tRow+1}-F{tRow+2}" 
+
+#format currency
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['PARTICIPATION'] = f'H{tRow}'
+
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
+
+tRow = tRow+3
+
+sheetname[f'A{tRow}'] = "YTD Interest"
+sheetname[f'E{tRow}'] = "CM_TRIAL"
+sheetname[f'E{tRow+1}'] = "CN_TRIAL"
+sheetname[f'E{tRow+2}'] = "MG_TRIAL"
+sheetname[f'G{tRow}'] = "(13)"
+sheetname[f'H{tRow}'] = f"=D{tRow}+D{tRow+1}+D{tRow+2}-F{tRow}-F{tRow+1}-F{tRow+2}" 
+
+#format currency
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['YTDINTEREST'] = f'H{tRow}'
+
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
+
+tRow = tRow+3
+
+sheetname[f'A{tRow}'] = "YTD Late Charge Paid"
+sheetname[f'E{tRow}'] = "MM_YTD"
+sheetname[f'G{tRow}'] = "(14)"
+sheetname[f'H{tRow}'] = f"=D{tRow}-F{tRow}-F{tRow+1}-F{tRow+2}"
+
+#format currency
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['YTDLATECHARGEPAID'] = f'H{tRow}'
+
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
+
+tRow = tRow+3
+
+sheetname[f'A{tRow}'] = "YTD Taxes"
+sheetname[f'E{tRow}'] = "CM_TRIAL"
+sheetname[f'E{tRow+1}'] = "CN_TRIAL"
+sheetname[f'E{tRow+2}'] = "MG_TRIAL"
+sheetname[f'G{tRow}'] = "(15)"
+sheetname[f'H{tRow}'] = f"=D{tRow}+D{tRow+1}+D{tRow+2}-F{tRow}-F{tRow+1}-F{tRow+2}" 
+
+#format currency
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['YTDTAXES'] = f'H{tRow}'
+
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
+
+tRow = tRow+3
+
+sheetname[f'A{tRow}'] = "YTD Points Paid"
+sheetname[f'E{tRow}'] = "MM_YTD"
+sheetname[f'G{tRow}'] = "(16)"
+sheetname[f'H{tRow}'] = f"=D{tRow}-F{tRow}-F{tRow+1}-F{tRow+2}"
+
+#format currency
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['YTDPOINTSPAID'] = f'H{tRow}'
+
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
+
+tRow = tRow+3
+
+sheetname[f'A{tRow}'] = "YTD PMI Paid"
+sheetname[f'E{tRow}'] = "MM_YTD"
+sheetname[f'G{tRow}'] = "(17)"
+sheetname[f'H{tRow}'] = f"=D{tRow}-F{tRow}-F{tRow+1}-F{tRow+2}"
+
+#format currency
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['YTDPMIPAID'] = f'H{tRow}'
+
+
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
+
+tRow = tRow+3
+
+sheetname[f'A{tRow}'] = "Shadow Accounting IPTP"
+sheetname[f'E{tRow}'] = "CM_TRIAL"
+sheetname[f'E{tRow+1}'] = "CN_TRIAL"
+sheetname[f'E{tRow+2}'] = "MG_TRIAL"
+sheetname[f'G{tRow}'] = "(18)"
+sheetname[f'H{tRow}'] = f"=D{tRow}+D{tRow+1}+D{tRow+2}-F{tRow}-F{tRow+1}-F{tRow+2}" 
+
+#format currency
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['SHADOWACCOUNTINGIPTP'] = f'H{tRow}'
+
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
+
+tRow = tRow+3
+
+sheetname[f'A{tRow}'] = "Forebearance Balance"
+sheetname[f'E{tRow}'] = "MG_TRIAL"
+sheetname[f'G{tRow}'] = "(19)"
+sheetname[f'H{tRow}'] = f"=D{tRow}-F{tRow}-F{tRow+1}-F{tRow+2}"
+
+#format currency
+sheetname[f'H{tRow}'].number_format = formattingAmount 
+list_with_variance['FOREBEARANCEBALANCE'] = f'H{tRow}'
+
+
+#border the line 
+for row in sheetname[f'A{tRow}:H{tRow}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = top_border  
+
+#border the line 
+for row in sheetname[f'A{tRow+2}:H{tRow+2}']:
+    for prin_top_cell in row:
+        prin_top_cell.border = bottom_border  
 
 #Connection to DB 
 print("Connection to DB.....")
@@ -396,222 +550,315 @@ cursor.execute(query)
 # Fetch all rows from the executed query
 results = cursor.fetchall()
 
+print(f"list_with_variance >>>>, {list_with_variance} list_with_variance['PRINCIPALBALANCE'] >> {list_with_variance['PRINCIPALBALANCE'][1:]}")
+
+lRow = 0
 # Print the results
 for row in results:
     #print(row)
     
     if row[1] =='PRINCIPALBALANCE':
         print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['PRINCIPALBALANCE'][1:])
         if row[4]=='CML':
-            sheetname['C8'] = row[2]
-            sheetname['D8'] = row[3]
-            sheetname['F8'] = row[5]
+            sheetname[f'C{lRow}'] = row[2]
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
         if row[4]=='CNS':
-            sheetname['C9'] = row[2]
-            sheetname['D9'] = row[3]
-            sheetname['F9'] = row[5]
+            sheetname[f'C{lRow+1}'] = row[2]
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
         if row[4]=='MTG':
-            sheetname['C10'] = row[2]
-            sheetname['D10'] = row[3]
-            sheetname['F10'] = row[5]
+            sheetname[f'C{lRow+2}'] = row[2]
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5]
     elif row[1] =='ACCRUEDINTEREST':
         print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['ACCRUEDINTEREST'][1:])
         if row[4]=='CML':
-            sheetname['C11'] = row[2]
-            sheetname['D11'] = row[3]
-            sheetname['F11'] = row[5]
+            sheetname[f'C{lRow}'] = row[2]
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
         if row[4]=='CNS':
-            sheetname['C12'] = row[2]
-            sheetname['D12'] = row[3]
-            sheetname['F12'] = row[5]
+            sheetname[f'C{lRow+1}'] = row[2]
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
         if row[4]=='MTG':
-            sheetname['C13'] = row[2]
-            sheetname['D13'] = row[3]
-            sheetname['F13'] = row[5] 
+            sheetname[f'C{lRow+2}'] = row[2]
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
     elif row[1] =='ESCROWBALANCE':
         print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['ESCROWBALANCE'][1:])
         if row[4]=='CML':
-            sheetname['C17'] = row[2]
-            sheetname['D17'] = row[3]
-            sheetname['F17'] = row[5]
+            sheetname[f'C{lRow}'] = row[2]
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
         if row[4]=='CNS':
-            sheetname['C18'] = row[2]
-            sheetname['D18'] = row[3]
-            sheetname['F18'] = row[5]
+            sheetname[f'C{lRow+1}'] = row[2]
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
         if row[4]=='MTG':
-            sheetname['C19'] = row[2]
-            sheetname['D19'] = row[3]
-            sheetname['F19'] = row[5] 
+            sheetname[f'C{lRow+2}'] = row[2]
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
+    elif row[1] =='LOANSINPROCESS':
+        print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['LOANSINPROCESS'][1:])
+        if row[4]=='CML':
+            sheetname[f'C{lRow}'] = row[2]
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
+        if row[4]=='CNS':
+            sheetname[f'C{lRow+1}'] = row[2]
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
+        if row[4]=='MTG':
+            sheetname[f'C{lRow+2}'] = row[2]
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
     elif row[1] =='LATECHARGES':
         print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['LATECHARGES'][1:])
         if row[4]=='CML':
-            sheetname['C20'] = row[2]
-            sheetname['D20'] = row[3]
-            sheetname['F20'] = row[5]
+            sheetname[f'C{lRow}'] = row[2]
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
         if row[4]=='CNS':
-            sheetname['C21'] = row[2]
-            sheetname['D21'] = row[3]
-            sheetname['F21'] = row[5]
+            sheetname[f'C{lRow+1}'] = row[2]
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
         if row[4]=='MTG':
-            sheetname['C22'] = row[2]
-            sheetname['D22'] = row[3]
-            sheetname['F22'] = row[5] 
+            sheetname[f'C{lRow+2}'] = row[2]
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
     elif row[1] =='DEFFEREDFEES':
         print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['DEFFEREDFEES'][1:]) 
         if row[4]=='CML':
-            sheetname['C23'] = row[2]
-            sheetname['D23'] = row[3]
-            sheetname['F23'] = row[5]
+            sheetname[f'C{lRow}'] = row[2]
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
         if row[4]=='CNS':
-            sheetname['C24'] = row[2]
-            sheetname['D24'] = row[3]
-            sheetname['F24'] = row[5]
+            sheetname[f'C{lRow+1}'] = row[2]
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
         if row[4]=='MTG':
-            sheetname['C25'] = row[2]
-            sheetname['D25'] = row[3]
-            sheetname['F25'] = row[5] 
+            sheetname[f'C{lRow+2}'] = row[2]
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
     elif row[1] =='DEFFEREDCOSTS':
         print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['DEFFEREDCOSTS'][1:])
         if row[4]=='CML':
-            sheetname['C26'] = row[2]
-            sheetname['D26'] = row[3]
-            sheetname['F26'] = row[5]
+            sheetname[f'C{lRow}'] = row[2]
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
         if row[4]=='CNS':
-            sheetname['C27'] = row[2]
-            sheetname['D27'] = row[3]
-            sheetname['F27'] = row[5]
+            sheetname[f'C{lRow+1}'] = row[2]
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
         if row[4]=='MTG':
-            sheetname['C28'] = row[2]
-            sheetname['D28'] = row[3]
-            sheetname['F28'] = row[5] 
+            sheetname[f'C{lRow+2}'] = row[2]
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
     elif row[1] =='CREDITLIMIT':
         print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['CREDITLIMIT'][1:])
         if row[4]=='CML':
-            sheetname['C29'] = row[2]
-            sheetname['D29'] = row[3]
-            sheetname['F29'] = row[5]
+            sheetname[f'C{lRow}'] = row[2]
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
         if row[4]=='CNS':
-            sheetname['C30'] = row[2]
-            sheetname['D30'] = row[3]
-            sheetname['F30'] = row[5]
+            sheetname[f'C{lRow+1}'] = row[2]
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
         if row[4]=='MTG':
-            sheetname['C31'] = row[2]
-            sheetname['D31'] = row[3]
-            sheetname['F31'] = row[5]
+            sheetname[f'C{lRow+2}'] = row[2]
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5]
         if row[4]=='MLN':
-            sheetname['C32'] = row[2]
-            sheetname['D32'] = row[3]
-            sheetname['F32'] = row[5] 
+            sheetname[f'C{lRow+3}'] = row[2]
+            sheetname[f'D{lRow+3}'] = row[3]
+            sheetname[f'F{lRow+3}'] = row[5] 
     elif row[1] =='CHARGEOFFBALANCE':
         print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['CHARGEOFFBALANCE'][1:])
         if row[4]=='CML':
-            sheetname['C33'] = row[2]
-            sheetname['D33'] = row[3]
-            sheetname['F33'] = row[5]
+            sheetname[f'C{lRow}'] = row[2]
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
         if row[4]=='CNS':
-            sheetname['C34'] = row[2]
-            sheetname['D34'] = row[3]
-            sheetname['F34'] = row[5]
+            sheetname[f'C{lRow+1}'] = row[2]
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
         if row[4]=='MTG':
-            sheetname['C35'] = row[2]
-            sheetname['D35'] = row[3]
-            sheetname['F35'] = row[5] 
+            sheetname[f'C{lRow+2}'] = row[2]
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
     elif row[1] =='UNAPPLIEDBALANCE':
         print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['UNAPPLIEDBALANCE'][1:])
         if row[4]=='CML':
-            sheetname['C36'] = row[2]
-            sheetname['D36'] = row[3]
-            sheetname['F36'] = row[5]
+            sheetname[f'C{lRow}'] = row[2]
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
         if row[4]=='CNS':
-            sheetname['C37'] = row[2]
-            sheetname['D37'] = row[3]
-            sheetname['F37'] = row[5]
+            sheetname[f'C{lRow+1}'] = row[2]
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
         if row[4]=='MTG':
-            sheetname['C38'] = row[2]
-            sheetname['D38'] = row[3]
-            sheetname['F38'] = row[5] 
+            sheetname[f'C{lRow+2}'] = row[2]
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
     elif row[1] =='INVESTORBALANCE':
         print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['INVESTORBALANCE'][1:])
         if row[4]=='CML':
-            sheetname['C39'] = row[2]
-            sheetname['D39'] = row[3]
-            sheetname['F39'] = row[5]
+            sheetname[f'C{lRow}'] = row[2]
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
         if row[4]=='CNS':
-            sheetname['C40'] = row[2]
-            sheetname['D40'] = row[3]
-            sheetname['F40'] = row[5]
+            sheetname[f'C{lRow+1}'] = row[2]
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
         if row[4]=='MTG':
-            sheetname['C41'] = row[2]
-            sheetname['D41'] = row[3]
-            sheetname['F41'] = row[5] 
+            sheetname[f'C{lRow+2}'] = row[2]
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
     elif row[1] =='PARTICIPATION':
         print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['PARTICIPATION'][1:])
         if row[4]=='CML':
-            sheetname['C42'] = row[2]
-            sheetname['D42'] = row[3]
-            sheetname['F42'] = row[5]
+            sheetname[f'C{lRow}'] = row[2]
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
         if row[4]=='CNS':
-            sheetname['C43'] = row[2]
-            sheetname['D43'] = row[3]
-            sheetname['F43'] = row[5]
+            sheetname[f'C{lRow+1}'] = row[2]
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
         if row[4]=='MTG':
-            sheetname['C44'] = row[2]
-            sheetname['D44'] = row[3]
-            sheetname['F44'] = row[5] 
+            sheetname[f'C{lRow+2}'] = row[2]
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
     elif row[1] =='YTDINTEREST':
         print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['YTDINTEREST'][1:])
         if row[4]=='CML':
-            sheetname['C45'] = row[2]
-            sheetname['D45'] = row[3]
-            sheetname['F45'] = row[5]
+            sheetname[f'C{lRow}'] = row[2]
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
         if row[4]=='CNS':
-            sheetname['C46'] = row[2]
-            sheetname['D46'] = row[3]
-            sheetname['F46'] = row[5]
+            sheetname[f'C{lRow+1}'] = row[2]
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
         if row[4]=='MTG':
-            sheetname['C47'] = row[2]
-            sheetname['D47'] = row[3]
-            sheetname['F47'] = row[5] 
+            sheetname[f'C{lRow+2}'] = row[2]
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
     elif row[1] =='YTDLATECHARGEPAID':
         print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['YTDLATECHARGEPAID'][1:])
         if row[4]=='CML':
-            sheetname['C48'] = row[2] 
-            sheetname['D48'] = row[3]
-            sheetname['F48'] = row[5]
+            sheetname[f'C{lRow}'] = row[2] 
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
         if row[4]=='CNS':
-            sheetname['C49'] = row[2] 
-            sheetname['D49'] = row[3]
-            sheetname['F49'] = row[5]
+            sheetname[f'C{lRow+1}'] = row[2] 
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
         if row[4]=='MTG':
-            sheetname['C50'] = row[2] 
-            sheetname['D50'] = row[3]
-            sheetname['F50'] = row[5] 
+            sheetname[f'C{lRow+2}'] = row[2] 
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
+    elif row[1] =='YTDTAXES':
+        print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['YTDTAXES'][1:])
+        if row[4]=='CML':
+            sheetname[f'C{lRow}'] = row[2] 
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
+        if row[4]=='CNS':
+            sheetname[f'C{lRow+1}'] = row[2] 
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
+        if row[4]=='MTG':
+            sheetname[f'C{lRow+2}'] = row[2] 
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
+    elif row[1] =='YTDPOINTSPAID':
+        print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['YTDPOINTSPAID'][1:])
+        if row[4]=='CML':
+            sheetname[f'C{lRow}'] = row[2] 
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
+        if row[4]=='CNS':
+            sheetname[f'C{lRow+1}'] = row[2] 
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
+        if row[4]=='MTG':
+            sheetname[f'C{lRow+2}'] = row[2] 
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
+    elif row[1] =='YTDPMIPAID':
+        print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['YTDPMIPAID'][1:])
+        if row[4]=='CML':
+            sheetname[f'C{lRow}'] = row[2] 
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
+        if row[4]=='CNS':
+            sheetname[f'C{lRow+1}'] = row[2] 
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
+        if row[4]=='MTG':
+            sheetname[f'C{lRow+2}'] = row[2] 
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
     elif row[1] =='SHADOWACCOUNTINGIPTP':
         print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['SHADOWACCOUNTINGIPTP'][1:])
         if row[4]=='CML':
-            sheetname['C51'] = row[2]
-            sheetname['D51'] = row[3]
-            sheetname['F51'] = row[5]
+            sheetname[f'C{lRow}'] = row[2]
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
         if row[4]=='CNS':
-            sheetname['C52'] = row[2]
-            sheetname['D52'] = row[3]
-            sheetname['F52'] = row[5]
+            sheetname[f'C{lRow+1}'] = row[2]
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
         if row[4]=='MTG':
-            sheetname['C53'] = row[2]
-            sheetname['D53'] = row[3]
-            sheetname['F53'] = row[5] 
+            sheetname[f'C{lRow+2}'] = row[2]
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
+    elif row[1] =='FOREBEARANCEBALANCE':
+        print("BAL CATEGORY ->>", row[1] , row[4])
+        lRow = int(list_with_variance['FOREBEARANCEBALANCE'][1:])
+        if row[4]=='CML':
+            sheetname[f'C{lRow}'] = row[2]
+            sheetname[f'D{lRow}'] = row[3]
+            sheetname[f'F{lRow}'] = row[5]
+        if row[4]=='CNS':
+            sheetname[f'C{lRow+1}'] = row[2]
+            sheetname[f'D{lRow+1}'] = row[3]
+            sheetname[f'F{lRow+1}'] = row[5]
+        if row[4]=='MTG':
+            sheetname[f'C{lRow+2}'] = row[2]
+            sheetname[f'D{lRow+2}'] = row[3]
+            sheetname[f'F{lRow+2}'] = row[5] 
+    
 
 else:
     print ("Clossing connection")
-# Close the connection when done
+# Close the connection when done 
 cursor.close()
 conn.close()    
 
-
+print(" Max rows >>>>>>>>>>>>> I am here ",sheetname.max_row)
 #bold row E
-for row in range(8, 55):
+for row in range(8, sheetname.max_row+2):
     cell = sheetname[f"E{row}"]
-    cell.font =bold_font
+   # cell.font =bold_font
     cell.alignment = alignment
     #format currency amount DNA values
     currencycellDNA = sheetname[f"F{row}"] 
@@ -619,83 +866,17 @@ for row in range(8, 55):
     #format currency amount Dmpdata values
     currencycellDmp = sheetname[f"D{row}"] 
     currencycellDmp.number_format = formattingAmount 
+
+    dmpdatabalsource = sheetname[f"C{row}"]
+    dmpdatabalsource.alignment = alignment
+
+    balanceNumber = sheetname[f"G{row}"]
+    balanceNumber.alignment = alignment
     
     
 
 # Add themed text to the column
 color_font = Font(color="FF0000")
-
-sheetname['A60'] = "Explanation of any out of balance conditions:" 
-
-
-# Define the range of cells to apply borders
-shadow_top_border_range = sheetname['A51:H51']
-
-# Apply the border to top cell in the range
-for row in shadow_top_border_range:
-    for top_cell in row:
-        top_cell.border = top_border
-
-# Define the range of cells to apply borders
-shadow_bottom_border_range = sheetname['A53:H53']
-
-# Apply the border to top cell in the range
-for row in shadow_bottom_border_range:
-    for bottom_cell in row:
-        bottom_cell.border = bottom_border
-        
-for row in sheetname['A8:H8']:
-    for prin_top_cell in row:
-        prin_top_cell.border = top_border       
- 
-for row in sheetname['A10:H10']:
-    for prin_bottom_cell in row:
-        prin_bottom_cell.border = bottom_border  
-
-
-for row in sheetname['A17:H17']:
-    for esc_top_cell in row:
-        esc_top_cell.border = top_border   
-        
-for row in sheetname['A19:H19']:
-    for esc_bottom_cell in row:
-        esc_bottom_cell.border = bottom_border 
-
-for row in sheetname['A23:H23']:
-    for fee_top_cell in row:
-        fee_top_cell.border = top_border   
-        
-for row in sheetname['A26:H26']:
-    for cost_top_cell in row:
-        cost_top_cell.border = top_border
-
-for row in sheetname['A29:H29']:
-    for loc_top_cell in row:
-        loc_top_cell.border = top_border 
-        
-for row in sheetname['A33:H33']:
-    for chgoff_top_cell in row:
-        chgoff_top_cell.border = top_border
-
-for row in sheetname['A36:H36']:
-    for unapp_top_cell in row:
-        unapp_top_cell.border = top_border
-
-for row in sheetname['A39:H39']:
-    for inv_top_cell in row:
-        inv_top_cell.border = top_border
-
-for row in sheetname['A42:H42']:
-    for part_top_cell in row:
-        part_top_cell.border = top_border
- 
-for row in sheetname['A45:H45']:
-    for ytdInt_top_cell in row:
-        ytdInt_top_cell.border = top_border 
-
-for row in sheetname['A48:H48']:
-    for ytdLate_top_cell in row:
-        ytdLate_top_cell.border = top_border 
 
         
 #auto size the entire excel 
@@ -707,10 +888,13 @@ for idx, col in enumerate(sheetname.columns, 1):
 
 #tracking the last exception cell 
 countCell = int(keys['startCell'])
+
 print("Start creating exception worksheet tabs for balancing category with variances#####...." )
 
+sheetname[f'A{countCell-2}'] = "Explanation of any out of balance conditions:" 
+
 #Border the excel to medium 
-for row in sheetname[f'A{countCell-1}:H{countCell-1}']:
+for row in sheetname[f'A{countCell}:H{countCell}']:
     for expl_top_cell in row:
         expl_top_cell.border = top_border 
         expl_top_cell.fill = grey_fill_excptn_area 
@@ -719,7 +903,7 @@ for row in sheetname[f'A{countCell-1}:H{countCell-1}']:
 list_with_value={}
 
 #create worksheet for the exception 
-for row in range(8, 55):
+for row in range(8, countCell-4):
     Taskno=sheetname[f"G{row}"].value
     Taskname=sheetname[f"A{row}"].value
     if not Taskno ==None:
@@ -741,7 +925,7 @@ for row in range(8, 55):
                 list_with_value["PRINCIPALBALANCE"]=  countCell
                 print(list_with_value)
                 countCell+=1
-                sheetname[f"A{countCell}"] = "    Loans with balances not converting" #chnages to exceptn
+                #sheetname[f"A{countCell}"] = "    Loans with balances not converting" #chnages to exceptn
                 sheetname[f"G{countCell}"] = NETVAR
                 sheetname[f"G{countCell}"].font  = color_font
                 sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
@@ -757,7 +941,7 @@ for row in range(8, 55):
                 list_with_value["ACCRUEDINTEREST"]=  countCell
                 print(list_with_value)
                 countCell+=1
-                sheetname[f"A{countCell}"] = "    Loans with Int balances not converting" #chnages to exceptn
+                #sheetname[f"A{countCell}"] = "    Loans with Int balances not converting" #chnages to exceptn
                 sheetname[f"G{countCell}"] = NETVAR
                 sheetname[f"G{countCell}"].font  = color_font
                 sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
@@ -773,7 +957,7 @@ for row in range(8, 55):
                 list_with_value["ESCROWBALANCE"]=  countCell
                 print(list_with_value)
                 countCell+=1
-                sheetname[f"A{countCell}"] = "    Loans with Escrow balances not converting" #chnages to exceptn
+                #sheetname[f"A{countCell}"] = "    Loans with Escrow balances not converting" #chnages to exceptn
                 sheetname[f"G{countCell}"] = NETVAR
                 sheetname[f"G{countCell}"].font  = color_font
                 sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
@@ -789,7 +973,23 @@ for row in range(8, 55):
                 list_with_value["LATECHARGES"]= countCell
                 print(list_with_value)
                 countCell+=1
-                sheetname[f"A{countCell}"] = "    Loans with Late Charge balances not converting" #chnages to exceptn
+                #sheetname[f"A{countCell}"] = "    Loans with Late Charge balances not converting" #chnages to exceptn  
+                sheetname[f"G{countCell}"] = NETVAR
+                sheetname[f"G{countCell}"].font  = color_font
+                sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
+                countCell+=3
+                 #Create grey fill 
+                for row in sheetname[f"A{countCell}": f"H{countCell}"]:
+                    for expl_top_cell in row:
+                        expl_top_cell.border = top_border 
+                        expl_top_cell.fill = grey_fill_excptn_area
+            
+            elif Taskname.lower() == 'loans in process (lip)': 
+                sheetname[f"A{countCell}"] = taskitems
+                list_with_value["LOANSINPROCESS"]= countCell
+                print(list_with_value)
+                countCell+=1
+                #sheetname[f"A{countCell}"] = "    Loans with LIP balances not converting" #chnages to exceptn  
                 sheetname[f"G{countCell}"] = NETVAR
                 sheetname[f"G{countCell}"].font  = color_font
                 sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
@@ -805,7 +1005,7 @@ for row in range(8, 55):
                 list_with_value["DEFFEREDFEES"]=  countCell
                 print(list_with_value)
                 countCell+=1
-                sheetname[f"A{countCell}"] = "    Loans with Differred fees balances not converting" #chnages to exceptn
+                #sheetname[f"A{countCell}"] = "    Loans with Differred fees balances not converting" #chnages to exceptn
                 sheetname[f"G{countCell}"] = NETVAR
                 sheetname[f"G{countCell}"].font  = color_font
                 sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
@@ -821,7 +1021,7 @@ for row in range(8, 55):
                 list_with_value["DEFFEREDCOSTS"]=  countCell
                 print(list_with_value)
                 countCell+=1
-                sheetname[f"A{countCell}"] = "    Loans with Differred costs balances not converting" #chnages to exceptn
+                #sheetname[f"A{countCell}"] = "    Loans with Differred costs balances not converting" #chnages to exceptn
                 sheetname[f"G{countCell}"] = NETVAR
                 sheetname[f"G{countCell}"].font  = color_font
                 sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
@@ -837,7 +1037,7 @@ for row in range(8, 55):
                 list_with_value["CREDITLIMIT"]=  countCell
                 print(list_with_value)
                 countCell+=1
-                sheetname[f"A{countCell}"] = "    Loans with LOC balances not converting" #chnages to exceptn
+                #sheetname[f"A{countCell}"] = "    Loans with LOC balances not converting" #chnages to exceptn
                 sheetname[f"G{countCell}"] = NETVAR
                 sheetname[f"G{countCell}"].font  = color_font
                 sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
@@ -853,7 +1053,7 @@ for row in range(8, 55):
                 list_with_value["CHARGEOFFBALANCE"]=  countCell
                 print(list_with_value)
                 countCell+=1
-                sheetname[f"A{countCell}"] = "    Loans with charge-off balances not converting" #chnages to exceptn
+                #sheetname[f"A{countCell}"] = "    Loans with charge-off balances not converting" #chnages to exceptn
                 sheetname[f"G{countCell}"] = NETVAR
                 sheetname[f"G{countCell}"].font  = color_font
                 sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
@@ -869,7 +1069,7 @@ for row in range(8, 55):
                 list_with_value["UNAPPLIEDBALANCE"]= countCell
                 print(list_with_value)
                 countCell+=1
-                sheetname[f"A{countCell}"] = "    Loans with Unapplied balances not converting" #chnages to exceptn
+                #sheetname[f"A{countCell}"] = "    Loans with Unapplied balances not converting" #chnages to exceptn
                 sheetname[f"G{countCell}"] = NETVAR
                 sheetname[f"G{countCell}"].font  = color_font
                 sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
@@ -885,7 +1085,7 @@ for row in range(8, 55):
                 list_with_value["INVESTORBALANCE"]=  countCell
                 print(list_with_value)
                 countCell+=1
-                sheetname[f"A{countCell}"] = "    Loans with Investor balances not converting" #chnages to exceptn
+                #sheetname[f"A{countCell}"] = "    Loans with Investor balances not converting" #chnages to exceptn
                 sheetname[f"G{countCell}"] = NETVAR
                 sheetname[f"G{countCell}"].font  = color_font
                 sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
@@ -901,7 +1101,7 @@ for row in range(8, 55):
                 list_with_value["PARTICIPATION"]=  countCell
                 print(list_with_value)
                 countCell+=1
-                sheetname[f"A{countCell}"] = "    Loans with Participation balances not converting" #chnages to exceptn
+                #sheetname[f"A{countCell}"] = "    Loans with Participation balances not converting" #chnages to exceptn
                 sheetname[f"G{countCell}"] = NETVAR
                 sheetname[f"G{countCell}"].font  = color_font
                 sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
@@ -917,7 +1117,7 @@ for row in range(8, 55):
                 list_with_value["YTDINTEREST"]=  countCell
                 print(list_with_value)
                 countCell+=1
-                sheetname[f"A{countCell}"] = "    Loans with Ytd Interest balances not converting" #chnages to exceptn
+                #sheetname[f"A{countCell}"] = "    Loans with Ytd Interest balances not converting" #chnages to exceptn
                 sheetname[f"G{countCell}"] = NETVAR
                 sheetname[f"G{countCell}"].font  = color_font
                 sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
@@ -933,7 +1133,55 @@ for row in range(8, 55):
                 list_with_value["YTDLATECHARGEPAID"]=  countCell
                 print(list_with_value)
                 countCell+=1
-                sheetname[f"A{countCell}"] = "    Loans with YTD late charge balances not converting" #chnages to exceptn
+                #sheetname[f"A{countCell}"] = "    Loans with YTD late charge balances not converting" #chnages to exceptn
+                sheetname[f"G{countCell}"] = NETVAR
+                sheetname[f"G{countCell}"].font  = color_font
+                sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
+                countCell+=3
+                 #Create grey fill 
+                for row in sheetname[f"A{countCell}": f"H{countCell}"]:
+                    for expl_top_cell in row:
+                        expl_top_cell.border = top_border 
+                        expl_top_cell.fill = grey_fill_excptn_area
+            
+            elif Taskname.lower() == 'ytd taxes': 
+                sheetname[f"A{countCell}"] = taskitems
+                list_with_value["YTDTAXES"]=  countCell
+                print(list_with_value)
+                countCell+=1
+                #sheetname[f"A{countCell}"] = "    Loans with YTD late charge balances not converting" #chnages to exceptn
+                sheetname[f"G{countCell}"] = NETVAR
+                sheetname[f"G{countCell}"].font  = color_font
+                sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
+                countCell+=3
+                 #Create grey fill 
+                for row in sheetname[f"A{countCell}": f"H{countCell}"]:
+                    for expl_top_cell in row:
+                        expl_top_cell.border = top_border 
+                        expl_top_cell.fill = grey_fill_excptn_area
+            
+            elif Taskname.lower() == 'ytd points paid': 
+                sheetname[f"A{countCell}"] = taskitems
+                list_with_value["YTDPOINTSPAID"]=  countCell
+                print(list_with_value)
+                countCell+=1
+                #sheetname[f"A{countCell}"] = "    Loans with YTD late charge balances not converting" #chnages to exceptn
+                sheetname[f"G{countCell}"] = NETVAR
+                sheetname[f"G{countCell}"].font  = color_font
+                sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
+                countCell+=3
+                 #Create grey fill 
+                for row in sheetname[f"A{countCell}": f"H{countCell}"]:
+                    for expl_top_cell in row:
+                        expl_top_cell.border = top_border 
+                        expl_top_cell.fill = grey_fill_excptn_area
+            
+            elif Taskname.lower() == 'ytd pmt paid': 
+                sheetname[f"A{countCell}"] = taskitems
+                list_with_value["YTDPMIPAID"]=  countCell
+                print(list_with_value)
+                countCell+=1
+                #sheetname[f"A{countCell}"] = "    Loans with YTD late charge balances not converting" #chnages to exceptn
                 sheetname[f"G{countCell}"] = NETVAR
                 sheetname[f"G{countCell}"].font  = color_font
                 sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
@@ -944,12 +1192,14 @@ for row in range(8, 55):
                         expl_top_cell.border = top_border 
                         expl_top_cell.fill = grey_fill_excptn_area
                         
+
+                        
             elif Taskname.lower() == 'shadow accounting iptp': 
                 sheetname[f"A{countCell}"] = taskitems
                 list_with_value["SHADOWACCOUNTINGIPTP"]=  countCell
                 print(list_with_value)
                 countCell+=1
-                sheetname[f"A{countCell}"] = "    Loans with Shadow balances not converting" #chnages to exceptn
+                #sheetname[f"A{countCell}"] = "    Loans with Shadow balances not converting" #chnages to exceptn
                 sheetname[f"G{countCell}"] = NETVAR
                 sheetname[f"G{countCell}"].font  = color_font
                 sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
@@ -960,6 +1210,21 @@ for row in range(8, 55):
                         expl_top_cell.border = top_border 
                         expl_top_cell.fill = grey_fill_excptn_area
 
+            elif Taskname.lower() == 'forebearance balance': 
+                sheetname[f"A{countCell}"] = taskitems
+                list_with_value["FOREBEARANCEBALANCE"]=  countCell
+                print(list_with_value)
+                countCell+=1
+                #sheetname[f"A{countCell}"] = "    Loans with YTD late charge balances not converting" #chnages to exceptn
+                sheetname[f"G{countCell}"] = NETVAR
+                sheetname[f"G{countCell}"].font  = color_font
+                sheetname[f"H{countCell}"] = add_Dmpdata_minus_dna_cell
+                countCell+=3
+                 #Create grey fill 
+                for row in sheetname[f"A{countCell}": f"H{countCell}"]:
+                    for expl_top_cell in row:
+                        expl_top_cell.border = top_border 
+                        expl_top_cell.fill = grey_fill_excptn_area
 
 
 
@@ -1009,43 +1274,69 @@ headers = [description[0] for description in cursor.description ]
 print(headers)
       
        
-
+list_of_exception_position =[]
 
 # Print the results
 for row in results:
     print("Exception to process -->", row[0])
     if row[0]=="PRINCIPALBALANCE":
-
         if updateException(row[1])=='Y':
+            sheetname[f"A{list_with_value["PRINCIPALBALANCE"]+1}"] =  "Loans with balances not converting"
             sheetname[f"F{list_with_value["PRINCIPALBALANCE"]+1}"] = defaultvalue(row[1])
         if updateException(row[2])=='Y' and updateException(row[3])=='Y':
-             sheetname[f"A{list_with_value["PRINCIPALBALANCE"]+2}"] = row[2]
-             sheetname[f"F{list_with_value["PRINCIPALBALANCE"]+2}"] = defaultvalue(row[3])
+            if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["PRINCIPALBALANCE"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["PRINCIPALBALANCE"]+2}"] = defaultvalue(row[3])
+            else:
+                sheetname[f"A{list_with_value["PRINCIPALBALANCE"]+1}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["PRINCIPALBALANCE"]+1}"] = defaultvalue(row[3])
         if updateException(row[4])=='Y' and updateException(row[5])=='Y':
-             sheetname[f"A{list_with_value["PRINCIPALBALANCE"]+3}"] = row[4]
-             sheetname[f"F{list_with_value["PRINCIPALBALANCE"]+3}"] = defaultvalue(row[5])
+            if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["PRINCIPALBALANCE"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["PRINCIPALBALANCE"]+3}"] = defaultvalue(row[5])
+            else:
+                sheetname[f"A{list_with_value["PRINCIPALBALANCE"]+2}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["PRINCIPALBALANCE"]+2}"] = defaultvalue(row[5])
         if updateException(row[6])=='Y' and updateException(row[7])=='Y':
-             sheetname[f"A{list_with_value["PRINCIPALBALANCE"]+4}"] = row[6]
-             sheetname[f"F{list_with_value["PRINCIPALBALANCE"]+4}"] = defaultvalue(row[7])
+             if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["PRINCIPALBALANCE"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["PRINCIPALBALANCE"]+4}"] = defaultvalue(row[7])
+             else:
+                sheetname[f"A{list_with_value["PRINCIPALBALANCE"]+3}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["PRINCIPALBALANCE"]+3}"] = defaultvalue(row[7])
              
         #balance the exception 
         sheetname[f"H{list_with_value["PRINCIPALBALANCE"]+1}"] = F"= {list_with_variance["PRINCIPALBALANCE"]}-{f"F{list_with_value["PRINCIPALBALANCE"]+1}"}-{f"F{list_with_value["PRINCIPALBALANCE"]+2}"}-{f"F{list_with_value["PRINCIPALBALANCE"]+3}"}" 
 
         sheetname[f"H{list_with_value["PRINCIPALBALANCE"]+1}"].number_format = formattingAmount 
         
+        #print("list_of_exception_position ==========", list_of_exception_position)
         
     elif row[0]=="ACCRUEDINTEREST":
         if updateException(row[1])=='Y':
+            sheetname[f"A{list_with_value["ACCRUEDINTEREST"]+1}"] = "Loans with Int balances not converting"
             sheetname[f"F{list_with_value["ACCRUEDINTEREST"]+1}"] = defaultvalue(row[1])
         if updateException(row[2])=='Y' and updateException(row[3])=='Y':
-             sheetname[f"A{list_with_value["ACCRUEDINTEREST"]+2}"] = row[2]
-             sheetname[f"F{list_with_value["ACCRUEDINTEREST"]+2}"] = defaultvalue(row[3])
+             if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["ACCRUEDINTEREST"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["ACCRUEDINTEREST"]+2}"] = defaultvalue(row[3])
+             else:
+                 sheetname[f"A{list_with_value["ACCRUEDINTEREST"]+1}"] = row[2].capitalize()
+                 sheetname[f"F{list_with_value["ACCRUEDINTEREST"]+1}"] = defaultvalue(row[3])
         if updateException(row[4])=='Y' and updateException(row[5])=='Y':
-             sheetname[f"A{list_with_value["ACCRUEDINTEREST"]+3}"] = row[4]
-             sheetname[f"F{list_with_value["ACCRUEDINTEREST"]+3}"] = defaultvalue(row[5])
+             if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["ACCRUEDINTEREST"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["ACCRUEDINTEREST"]+3}"] = defaultvalue(row[5])
+             else:
+                 sheetname[f"A{list_with_value["ACCRUEDINTEREST"]+2}"] = row[4].capitalize()
+                 sheetname[f"F{list_with_value["ACCRUEDINTEREST"]+2}"] = defaultvalue(row[5])
         if updateException(row[6])=='Y' and updateException(row[7])=='Y':
-             sheetname[f"A{list_with_value["ACCRUEDINTEREST"]+4}"] = row[6]
-             sheetname[f"F{list_with_value["ACCRUEDINTEREST"]+4}"] = defaultvalue(row[7])
+             if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["ACCRUEDINTEREST"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["ACCRUEDINTEREST"]+4}"] = defaultvalue(row[7])
+             else:
+                 sheetname[f"A{list_with_value["ACCRUEDINTEREST"]+3}"] = row[6].capitalize()
+                 sheetname[f"F{list_with_value["ACCRUEDINTEREST"]+3}"] = defaultvalue(row[7])
              
          #balance the exception 
         sheetname[f"H{list_with_value["ACCRUEDINTEREST"]+1}"] = F"= {list_with_variance["ACCRUEDINTEREST"]}-{f"F{list_with_value["ACCRUEDINTEREST"]+1}"}-{f"F{list_with_value["ACCRUEDINTEREST"]+2}"}-{f"F{list_with_value["ACCRUEDINTEREST"]+3}"}" 
@@ -1054,16 +1345,29 @@ for row in results:
         
     elif row[0]=="ESCROWBALANCE":
         if updateException(row[1])=='Y':
-            sheetname[f"F{list_with_value["ESCROWBALANCE"]+1}"] = row[1]
+            sheetname[f"A{list_with_value["ESCROWBALANCE"]+1}"] = "Loans with Escrow balances not converting"
+            sheetname[f"F{list_with_value["ESCROWBALANCE"]+1}"] = defaultvalue(row[1])
         if updateException(row[2])=='Y' and updateException(row[3])=='Y':
-             sheetname[f"A{list_with_value["ESCROWBALANCE"]+2}"] = row[2]
-             sheetname[f"F{list_with_value["ESCROWBALANCE"]+2}"] = row[3]
+             if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["ESCROWBALANCE"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["ESCROWBALANCE"]+2}"] = defaultvalue(row[3])
+             else:
+                 sheetname[f"A{list_with_value["ESCROWBALANCE"]+1}"] = row[2].capitalize()
+                 sheetname[f"F{list_with_value["ESCROWBALANCE"]+1}"] = defaultvalue(row[3])
         if updateException(row[4])=='Y' and updateException(row[5])=='Y':
-             sheetname[f"A{list_with_value["ESCROWBALANCE"]+3}"] = row[4]
-             sheetname[f"F{list_with_value["ESCROWBALANCE"]+3}"] = row[5]
+            if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["ESCROWBALANCE"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["ESCROWBALANCE"]+3}"] = defaultvalue(row[5])
+            else:
+                sheetname[f"A{list_with_value["ESCROWBALANCE"]+2}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["ESCROWBALANCE"]+2}"] = defaultvalue(row[5])
         if updateException(row[6])=='Y' and updateException(row[7])=='Y':
-             sheetname[f"A{list_with_value["ESCROWBALANCE"]+4}"] = row[6]
-             sheetname[f"F{list_with_value["ESCROWBALANCE"]+4}"] = row[7]
+            if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["ESCROWBALANCE"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["ESCROWBALANCE"]+4}"] = defaultvalue(row[7])
+            else:
+                sheetname[f"A{list_with_value["ESCROWBALANCE"]+3}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["ESCROWBALANCE"]+3}"] = defaultvalue(row[7])
          #balance the exception 
         sheetname[f"H{list_with_value["ESCROWBALANCE"]+1}"] = F"= {list_with_variance["ESCROWBALANCE"]}-{f"F{list_with_value["ESCROWBALANCE"]+1}"}-{f"F{list_with_value["ESCROWBALANCE"]+2}"}-{f"F{list_with_value["ESCROWBALANCE"]+3}"}" 
 
@@ -1071,33 +1375,91 @@ for row in results:
         
     elif row[0]=="LATECHARGES":
         if updateException(row[1])=='Y':
-            sheetname[f"F{list_with_value["LATECHARGES"]+1}"] = row[1]
+            sheetname[f"A{list_with_value["LATECHARGES"]+1}"] = "Loans with Late Charge balances not converting"
+            sheetname[f"F{list_with_value["LATECHARGES"]+1}"] = defaultvalue(row[1])
         if updateException(row[2])=='Y' and updateException(row[3])=='Y':
-             sheetname[f"A{list_with_value["LATECHARGES"]+2}"] = row[2]
-             sheetname[f"F{list_with_value["LATECHARGES"]+2}"] = row[3]
+             if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["LATECHARGES"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["LATECHARGES"]+2}"] = defaultvalue(row[3])
+             else:
+                 sheetname[f"A{list_with_value["LATECHARGES"]+1}"] = row[2].capitalize()
+                 sheetname[f"F{list_with_value["LATECHARGES"]+1}"] = defaultvalue(row[3])
+                 
         if updateException(row[4])=='Y' and updateException(row[5])=='Y':
-             sheetname[f"A{list_with_value["LATECHARGES"]+3}"] = row[4]
-             sheetname[f"F{list_with_value["LATECHARGES"]+3}"] = row[5]
+             if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["LATECHARGES"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["LATECHARGES"]+3}"] = defaultvalue(row[5])
+             else:
+                 sheetname[f"A{list_with_value["LATECHARGES"]+2}"] = row[4].capitalize()
+                 sheetname[f"F{list_with_value["LATECHARGES"]+2}"] = defaultvalue(row[5])
+                 
         if updateException(row[6])=='Y' and updateException(row[7])=='Y':
-             sheetname[f"A{list_with_value["LATECHARGES"]+4}"] = row[6]
-             sheetname[f"F{list_with_value["LATECHARGES"]+4}"] = row[7]
+             if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["LATECHARGES"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["LATECHARGES"]+4}"] = defaultvalue(row[7])
+             else:
+                 sheetname[f"A{list_with_value["LATECHARGES"]+3}"] = row[6].capitalize()
+                 sheetname[f"F{list_with_value["LATECHARGES"]+3}"] = defaultvalue(row[7])
          #balance the exception 
         sheetname[f"H{list_with_value["LATECHARGES"]+1}"] = F"= {list_with_variance["LATECHARGES"]}-{f"F{list_with_value["LATECHARGES"]+1}"}-{f"F{list_with_value["LATECHARGES"]+2}"}-{f"F{list_with_value["LATECHARGES"]+3}"}" 
 
         sheetname[f"H{list_with_value["LATECHARGES"]+1}"].number_format = formattingAmount 
         
+    elif row[0]=="LOANSINPROCESS":
+        if updateException(row[1])=='Y':
+            sheetname[f"A{list_with_value["LOANSINPROCESS"]+1}"] = "Loans with LIP balances not converting"
+            sheetname[f"F{list_with_value["LOANSINPROCESS"]+1}"] = defaultvalue(row[1])
+        if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+              if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["LOANSINPROCESS"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["LOANSINPROCESS"]+2}"] = defaultvalue(row[3])
+              else:
+                  sheetname[f"A{list_with_value["LOANSINPROCESS"]+1}"] = row[2].capitalize()
+                  sheetname[f"F{list_with_value["LOANSINPROCESS"]+1}"] = defaultvalue(row[3])
+        if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+             if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                 sheetname[f"A{list_with_value["LOANSINPROCESS"]+3}"] = row[4].capitalize()
+                 sheetname[f"F{list_with_value["LOANSINPROCESS"]+3}"] = defaultvalue(row[5])
+             else:
+                 sheetname[f"A{list_with_value["LOANSINPROCESS"]+2}"] = row[4].capitalize()
+                 sheetname[f"F{list_with_value["LOANSINPROCESS"]+2}"] = defaultvalue(row[5])
+        if updateException(row[6])=='Y' and updateException(row[7])=='Y':
+              if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                 sheetname[f"A{list_with_value["LOANSINPROCESS"]+4}"] = row[6].capitalize()
+                 sheetname[f"F{list_with_value["LOANSINPROCESS"]+4}"] = defaultvalue(row[7])
+              else:
+                 sheetname[f"A{list_with_value["LOANSINPROCESS"]+3}"] = row[6].capitalize()
+                 sheetname[f"F{list_with_value["LOANSINPROCESS"]+3}"] = defaultvalue(row[7])
+         #balance the exception 
+        sheetname[f"H{list_with_value["LOANSINPROCESS"]+1}"] = F"= {list_with_variance["LOANSINPROCESS"]}-{f"F{list_with_value["LOANSINPROCESS"]+1}"}-{f"F{list_with_value["LOANSINPROCESS"]+2}"}-{f"F{list_with_value["LOANSINPROCESS"]+3}"}" 
+
+        sheetname[f"H{list_with_value["LOANSINPROCESS"]+1}"].number_format = formattingAmount 
+
     elif row[0]=="DEFFEREDFEES":
         if updateException(row[1])=='Y':
-            sheetname[f"F{list_with_value["DEFFEREDFEES"]+1}"] = row[1]
+            sheetname[f"A{list_with_value["DEFFEREDFEES"]+1}"] = "Loans with Differred fees balances not converting"
+            sheetname[f"F{list_with_value["DEFFEREDFEES"]+1}"] = defaultvalue(row[1])
         if updateException(row[2])=='Y' and updateException(row[3])=='Y':
-             sheetname[f"A{list_with_value["DEFFEREDFEES"]+2}"] = row[2]
-             sheetname[f"F{list_with_value["DEFFEREDFEES"]+2}"] = row[3]
+             if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["DEFFEREDFEES"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["DEFFEREDFEES"]+2}"] = defaultvalue(row[3])
+             else:
+                sheetname[f"A{list_with_value["DEFFEREDFEES"]+1}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["DEFFEREDFEES"]+1}"] = defaultvalue(row[3])
         if updateException(row[4])=='Y' and updateException(row[5])=='Y':
-             sheetname[f"A{list_with_value["DEFFEREDFEES"]+3}"] = row[4]
-             sheetname[f"F{list_with_value["DEFFEREDFEES"]+3}"] = row[5]
+             if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["DEFFEREDFEES"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["DEFFEREDFEES"]+3}"] = defaultvalue(row[5])
+             else:
+                sheetname[f"A{list_with_value["DEFFEREDFEES"]+2}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["DEFFEREDFEES"]+2}"] = defaultvalue(row[5])
         if updateException(row[6])=='Y' and updateException(row[7])=='Y':
-             sheetname[f"A{list_with_value["DEFFEREDFEES"]+4}"] = row[6]
-             sheetname[f"F{list_with_value["DEFFEREDFEES"]+4}"] = row[7]
+             if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["DEFFEREDFEES"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["DEFFEREDFEES"]+4}"] = defaultvalue(row[7])
+             else:
+                sheetname[f"A{list_with_value["DEFFEREDFEES"]+3}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["DEFFEREDFEES"]+3}"] = defaultvalue(row[7])
          #balance the exception 
         sheetname[f"H{list_with_value["DEFFEREDFEES"]+1}"] = F"= {list_with_variance["DEFFEREDFEES"]}-{f"F{list_with_value["DEFFEREDFEES"]+1}"}-{f"F{list_with_value["DEFFEREDFEES"]+2}"}-{f"F{list_with_value["DEFFEREDFEES"]+3}"}" 
 
@@ -1105,16 +1467,29 @@ for row in results:
         
     elif row[0]=="DEFFEREDCOSTS":
         if updateException(row[1])=='Y':
-            sheetname[f"F{list_with_value["DEFFEREDCOSTS"]+1}"] = row[1]
+            sheetname[f"A{list_with_value["DEFFEREDCOSTS"]+1}"] = "Loans with Differred Costs balances not converting"
+            sheetname[f"F{list_with_value["DEFFEREDCOSTS"]+1}"] = defaultvalue(row[1])
         if updateException(row[2])=='Y' and updateException(row[3])=='Y':
-             sheetname[f"A{list_with_value["DEFFEREDCOSTS"]+2}"] = row[2]
-             sheetname[f"F{list_with_value["DEFFEREDCOSTS"]+2}"] = row[3]
+             if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["DEFFEREDCOSTS"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["DEFFEREDCOSTS"]+2}"] = defaultvalue(row[3])
+             else:
+                sheetname[f"A{list_with_value["DEFFEREDCOSTS"]+1}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["DEFFEREDCOSTS"]+1}"] = defaultvalue(row[3])
         if updateException(row[4])=='Y' and updateException(row[5])=='Y':
-             sheetname[f"A{list_with_value["DEFFEREDCOSTS"]+3}"] = row[4]
-             sheetname[f"F{list_with_value["DEFFEREDCOSTS"]+3}"] = row[5]
+             if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["DEFFEREDCOSTS"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["DEFFEREDCOSTS"]+3}"] = defaultvalue(row[5])
+             else:
+                sheetname[f"A{list_with_value["DEFFEREDCOSTS"]+2}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["DEFFEREDCOSTS"]+2}"] = defaultvalue(row[5])
         if updateException(row[6])=='Y' and updateException(row[7])=='Y':
-             sheetname[f"A{list_with_value["DEFFEREDCOSTS"]+4}"] = row[6]
-             sheetname[f"F{list_with_value["DEFFEREDCOSTS"]+4}"] = row[7]
+              if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["DEFFEREDCOSTS"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["DEFFEREDCOSTS"]+4}"] = defaultvalue(row[7])
+              else:
+                sheetname[f"A{list_with_value["DEFFEREDCOSTS"]+3}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["DEFFEREDCOSTS"]+3}"] = defaultvalue(row[7])
          #balance the exception 
         sheetname[f"H{list_with_value["DEFFEREDCOSTS"]+1}"] = F"= {list_with_variance["DEFFEREDCOSTS"]}-{f"F{list_with_value["DEFFEREDCOSTS"]+1}"}-{f"F{list_with_value["DEFFEREDCOSTS"]+2}"}-{f"F{list_with_value["DEFFEREDCOSTS"]+3}"}" 
 
@@ -1122,34 +1497,62 @@ for row in results:
         
     elif row[0]=="CREDITLIMIT":
         if updateException(row[1])=='Y':
-            sheetname[f"F{list_with_value["CREDITLIMIT"]+1}"] = row[1]
+            sheetname[f"A{list_with_value["CREDITLIMIT"]+1}"] = "Loans with Credit Limit balances not converting"
+            sheetname[f"F{list_with_value["CREDITLIMIT"]+1}"] = defaultvalue(row[1])
         if updateException(row[2])=='Y' and updateException(row[3])=='Y':
-             sheetname[f"A{list_with_value["CREDITLIMIT"]+2}"] = row[2]
-             sheetname[f"F{list_with_value["CREDITLIMIT"]+2}"] = row[3]
+             if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["CREDITLIMIT"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["CREDITLIMIT"]+2}"] = defaultvalue(row[3])
+             else:
+                sheetname[f"A{list_with_value["CREDITLIMIT"]+1}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["CREDITLIMIT"]+1}"] = defaultvalue(row[3])
         if updateException(row[4])=='Y' and updateException(row[5])=='Y':
-             sheetname[f"A{list_with_value["CREDITLIMIT"]+3}"] = row[4]
-             sheetname[f"F{list_with_value["CREDITLIMIT"]+3}"] = row[5]
+              if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["CREDITLIMIT"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["CREDITLIMIT"]+3}"] = defaultvalue(row[5])
+              else:
+                sheetname[f"A{list_with_value["CREDITLIMIT"]+2}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["CREDITLIMIT"]+2}"] = defaultvalue(row[5])
         if updateException(row[6])=='Y' and updateException(row[7])=='Y':
-             sheetname[f"A{list_with_value["CREDITLIMIT"]+4}"] = row[6]
-             sheetname[f"F{list_with_value["CREDITLIMIT"]+4}"] = row[7]
+             if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["CREDITLIMIT"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["CREDITLIMIT"]+4}"] = defaultvalue(row[7])
+             else:
+                sheetname[f"A{list_with_value["CREDITLIMIT"]+3}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["CREDITLIMIT"]+3}"] = defaultvalue(row[7])
              
          #balance the exception 
         sheetname[f"H{list_with_value["CREDITLIMIT"]+1}"] = F"= {list_with_variance["CREDITLIMIT"]}-{f"F{list_with_value["CREDITLIMIT"]+1}"}-{f"F{list_with_value["CREDITLIMIT"]+2}"}-{f"F{list_with_value["CREDITLIMIT"]+3}"}" 
 
         sheetname[f"H{list_with_value["CREDITLIMIT"]+1}"].number_format = formattingAmount 
         
+       # print("list_of_exception_position ====CREDITLIMIT======", list_of_exception_position)
+
     elif row[0]=="CHARGEOFFBALANCE":
         if updateException(row[1])=='Y':
-            sheetname[f"F{list_with_value["CHARGEOFFBALANCE"]+1}"] = row[1]
+            sheetname[f"A{list_with_value["CHARGEOFFBALANCE"]+1}"] ="Loans with Charge-off balances not converting"
+            sheetname[f"F{list_with_value["CHARGEOFFBALANCE"]+1}"] = defaultvalue(row[1])
         if updateException(row[2])=='Y' and updateException(row[3])=='Y':
-             sheetname[f"A{list_with_value["CHARGEOFFBALANCE"]+2}"] = row[2]
-             sheetname[f"F{list_with_value["CHARGEOFFBALANCE"]+2}"] = row[3]
+             if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["CHARGEOFFBALANCE"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["CHARGEOFFBALANCE"]+2}"] = defaultvalue(row[3])
+             else:
+                sheetname[f"A{list_with_value["CHARGEOFFBALANCE"]+1}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["CHARGEOFFBALANCE"]+1}"] = defaultvalue(row[3])
         if updateException(row[4])=='Y' and updateException(row[5])=='Y':
-             sheetname[f"A{list_with_value["CHARGEOFFBALANCE"]+3}"] = row[4]
-             sheetname[f"F{list_with_value["CHARGEOFFBALANCE"]+3}"] = row[5]
+             if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["CHARGEOFFBALANCE"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["CHARGEOFFBALANCE"]+3}"] = defaultvalue(row[5])
+             else:
+                sheetname[f"A{list_with_value["CHARGEOFFBALANCE"]+2}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["CHARGEOFFBALANCE"]+2}"] = defaultvalue(row[5])
         if updateException(row[6])=='Y' and updateException(row[7])=='Y':
-             sheetname[f"A{list_with_value["CHARGEOFFBALANCE"]+4}"] = row[6]
-             sheetname[f"F{list_with_value["CHARGEOFFBALANCE"]+4}"] = row[7]
+              if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["CHARGEOFFBALANCE"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["CHARGEOFFBALANCE"]+4}"] = defaultvalue(row[7])
+              else:
+                sheetname[f"A{list_with_value["CHARGEOFFBALANCE"]+3}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["CHARGEOFFBALANCE"]+3}"] = defaultvalue(row[7])
          #balance the exception 
         sheetname[f"H{list_with_value["CHARGEOFFBALANCE"]+1}"] = F"= {list_with_variance["CHARGEOFFBALANCE"]}-{f"F{list_with_value["CHARGEOFFBALANCE"]+1}"}-{f"F{list_with_value["CHARGEOFFBALANCE"]+2}"}-{f"F{list_with_value["CHARGEOFFBALANCE"]+3}"}" 
 
@@ -1157,16 +1560,29 @@ for row in results:
         
     elif row[0]=="UNAPPLIEDBALANCE":
         if updateException(row[1])=='Y':
-            sheetname[f"F{list_with_value["UNAPPLIEDBALANCE"]+1}"] = row[1]
+            sheetname[f"A{list_with_value["UNAPPLIEDBALANCE"]+1}"] = "Loans with Unapplied balances not converting"
+            sheetname[f"F{list_with_value["UNAPPLIEDBALANCE"]+1}"] = defaultvalue(row[1])
         if updateException(row[2])=='Y' and updateException(row[3])=='Y':
-             sheetname[f"A{list_with_value["UNAPPLIEDBALANCE"]+2}"] = row[2]
-             sheetname[f"F{list_with_value["UNAPPLIEDBALANCE"]+2}"] = row[3]
+             if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["UNAPPLIEDBALANCE"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["UNAPPLIEDBALANCE"]+2}"] = defaultvalue(row[3])
+             else:
+                sheetname[f"A{list_with_value["UNAPPLIEDBALANCE"]+1}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["UNAPPLIEDBALANCE"]+1}"] = defaultvalue(row[3])
         if updateException(row[4])=='Y' and updateException(row[5])=='Y':
-             sheetname[f"A{list_with_value["UNAPPLIEDBALANCE"]+3}"] = row[4]
-             sheetname[f"F{list_with_value["UNAPPLIEDBALANCE"]+3}"] = row[5]
+              if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["UNAPPLIEDBALANCE"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["UNAPPLIEDBALANCE"]+3}"] = defaultvalue(row[5])
+              else:
+                sheetname[f"A{list_with_value["UNAPPLIEDBALANCE"]+2}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["UNAPPLIEDBALANCE"]+2}"] = defaultvalue(row[5])
         if updateException(row[6])=='Y' and updateException(row[7])=='Y':
-             sheetname[f"A{list_with_value["UNAPPLIEDBALANCE"]+4}"] = row[6]
-             sheetname[f"F{list_with_value["UNAPPLIEDBALANCE"]+4}"] = row[7]
+             if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["UNAPPLIEDBALANCE"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["UNAPPLIEDBALANCE"]+4}"] = defaultvalue(row[7])
+             else:
+                sheetname[f"A{list_with_value["UNAPPLIEDBALANCE"]+3}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["UNAPPLIEDBALANCE"]+3}"] = defaultvalue(row[7])
         #balance the exception 
         sheetname[f"H{list_with_value["UNAPPLIEDBALANCE"]+1}"] = F"= {list_with_variance["UNAPPLIEDBALANCE"]}-{f"F{list_with_value["UNAPPLIEDBALANCE"]+1}"}-{f"F{list_with_value["UNAPPLIEDBALANCE"]+2}"}-{f"F{list_with_value["UNAPPLIEDBALANCE"]+3}"}" 
 
@@ -1174,16 +1590,29 @@ for row in results:
         
     elif row[0]=="INVESTORBALANCE":
         if updateException(row[1])=='Y':
-            sheetname[f"F{list_with_value["INVESTORBALANCE"]+1}"] = row[1]
+            sheetname[f"A{list_with_value["INVESTORBALANCE"]+1}"] = "Loans with Investor balances not converting"
+            sheetname[f"F{list_with_value["INVESTORBALANCE"]+1}"] = defaultvalue(row[1])
         if updateException(row[2])=='Y' and updateException(row[3])=='Y':
-             sheetname[f"A{list_with_value["INVESTORBALANCE"]+2}"] = row[2]
-             sheetname[f"F{list_with_value["INVESTORBALANCE"]+2}"] = row[3]
+             if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["INVESTORBALANCE"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["INVESTORBALANCE"]+2}"] = defaultvalue(row[3])
+             else:
+                sheetname[f"A{list_with_value["INVESTORBALANCE"]+1}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["INVESTORBALANCE"]+1}"] = defaultvalue(row[3])
         if updateException(row[4])=='Y' and updateException(row[5])=='Y':
-             sheetname[f"A{list_with_value["INVESTORBALANCE"]+3}"] = row[4]
-             sheetname[f"F{list_with_value["INVESTORBALANCE"]+3}"] = row[5]
+             if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["INVESTORBALANCE"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["INVESTORBALANCE"]+3}"] = defaultvalue(row[5])
+             else:
+                sheetname[f"A{list_with_value["INVESTORBALANCE"]+2}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["INVESTORBALANCE"]+2}"] = defaultvalue(row[5])
         if updateException(row[6])=='Y' and updateException(row[7])=='Y':
-             sheetname[f"A{list_with_value["INVESTORBALANCE"]+4}"] = row[6]
-             sheetname[f"F{list_with_value["INVESTORBALANCE"]+4}"] = row[7]
+             if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["INVESTORBALANCE"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["INVESTORBALANCE"]+4}"] = defaultvalue(row[7])
+             else:
+                sheetname[f"A{list_with_value["INVESTORBALANCE"]+3}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["INVESTORBALANCE"]+3}"] = defaultvalue(row[7])
          #balance the exception 
         sheetname[f"H{list_with_value["INVESTORBALANCE"]+1}"] = F"= {list_with_variance["INVESTORBALANCE"]}-{f"F{list_with_value["INVESTORBALANCE"]+1}"}-{f"F{list_with_value["INVESTORBALANCE"]+2}"}-{f"F{list_with_value["INVESTORBALANCE"]+3}"}" 
 
@@ -1191,16 +1620,29 @@ for row in results:
         
     elif row[0]=="PARTICIPATION":
         if updateException(row[1])=='Y':
-            sheetname[f"F{list_with_value["PARTICIPATION"]+1}"] = row[1]
+            sheetname[f"A{list_with_value["PARTICIPATION"]+1}"] = "Loans with Participation balances not converting"
+            sheetname[f"F{list_with_value["PARTICIPATION"]+1}"] = defaultvalue(row[1])
         if updateException(row[2])=='Y' and updateException(row[3])=='Y':
-             sheetname[f"A{list_with_value["PARTICIPATION"]+2}"] = row[2]
-             sheetname[f"F{list_with_value["PARTICIPATION"]+2}"] = row[3]
+             if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["PARTICIPATION"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["PARTICIPATION"]+2}"] = defaultvalue(row[3])
+             else:
+                sheetname[f"A{list_with_value["PARTICIPATION"]+1}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["PARTICIPATION"]+1}"] = defaultvalue(row[3])
         if updateException(row[4])=='Y' and updateException(row[5])=='Y':
-             sheetname[f"A{list_with_value["PARTICIPATION"]+3}"] = row[4]
-             sheetname[f"F{list_with_value["PARTICIPATION"]+3}"] = row[5]
+             if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["PARTICIPATION"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["PARTICIPATION"]+3}"] = defaultvalue(row[5])
+             else:
+                sheetname[f"A{list_with_value["PARTICIPATION"]+2}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["PARTICIPATION"]+2}"] = defaultvalue(row[5])
         if updateException(row[6])=='Y' and updateException(row[7])=='Y':
-             sheetname[f"A{list_with_value["PARTICIPATION"]+4}"] = row[6]
-             sheetname[f"F{list_with_value["PARTICIPATION"]+4}"] = row[7]
+              if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["PARTICIPATION"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["PARTICIPATION"]+4}"] = defaultvalue(row[7])
+              else:
+                sheetname[f"A{list_with_value["PARTICIPATION"]+3}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["PARTICIPATION"]+3}"] = defaultvalue(row[7])
          #balance the exception 
         sheetname[f"H{list_with_value["PARTICIPATION"]+1}"] = F"= {list_with_variance["PARTICIPATION"]}-{f"F{list_with_value["PARTICIPATION"]+1}"}-{f"F{list_with_value["PARTICIPATION"]+2}"}-{f"F{list_with_value["PARTICIPATION"]+3}"}" 
 
@@ -1208,16 +1650,29 @@ for row in results:
         
     elif row[0]=="YTDINTEREST":
         if updateException(row[1])=='Y':
-            sheetname[f"F{list_with_value["YTDINTEREST"]+1}"] = row[1]
+            sheetname[f"A{list_with_value["YTDINTEREST"]+1}"] = "Loans with YTD interest balances not converting"
+            sheetname[f"F{list_with_value["YTDINTEREST"]+1}"] = defaultvalue(row[1])
         if updateException(row[2])=='Y' and updateException(row[3])=='Y':
-             sheetname[f"A{list_with_value["YTDINTEREST"]+2}"] = row[2]
-             sheetname[f"F{list_with_value["YTDINTEREST"]+2}"] = row[3]
+             if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["YTDINTEREST"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["YTDINTEREST"]+2}"] = defaultvalue(row[3])
+             else:
+                sheetname[f"A{list_with_value["YTDINTEREST"]+1}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["YTDINTEREST"]+1}"] = defaultvalue(row[3])
         if updateException(row[4])=='Y' and updateException(row[5])=='Y':
-             sheetname[f"A{list_with_value["YTDINTEREST"]+3}"] = row[4]
-             sheetname[f"F{list_with_value["YTDINTEREST"]+3}"] = row[5]
+             if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["YTDINTEREST"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["YTDINTEREST"]+3}"] = defaultvalue(row[5])
+             else:
+                sheetname[f"A{list_with_value["YTDINTEREST"]+2}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["YTDINTEREST"]+2}"] = defaultvalue(row[5])
         if updateException(row[6])=='Y' and updateException(row[7])=='Y':
-             sheetname[f"A{list_with_value["YTDINTEREST"]+4}"] = row[6]
-             sheetname[f"F{list_with_value["YTDINTEREST"]+4}"] = row[7]
+             if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["YTDINTEREST"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["YTDINTEREST"]+4}"] = defaultvalue(row[7])
+             else:
+                sheetname[f"A{list_with_value["YTDINTEREST"]+3}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["YTDINTEREST"]+3}"] = defaultvalue(row[7])
          #balance the exception 
         sheetname[f"H{list_with_value["YTDINTEREST"]+1}"] = F"= {list_with_variance["YTDINTEREST"]}-{f"F{list_with_value["YTDINTEREST"]+1}"}-{f"F{list_with_value["YTDINTEREST"]+2}"}-{f"F{list_with_value["YTDINTEREST"]+3}"}" 
 
@@ -1225,38 +1680,184 @@ for row in results:
         
     elif row[0]=="YTDLATECHARGEPAID":
         if updateException(row[1])=='Y':
-            sheetname[f"F{list_with_value["YTDLATECHARGEPAID"]+1}"] = row[1]
+            sheetname[f"A{list_with_value["YTDLATECHARGEPAID"]+1}"] = "Loans with YTD late charge unpaid balances not converting"
+            sheetname[f"F{list_with_value["YTDLATECHARGEPAID"]+1}"] = defaultvalue(row[1])
         if updateException(row[2])=='Y' and updateException(row[3])=='Y':
-             sheetname[f"A{list_with_value["YTDLATECHARGEPAID"]+2}"] = row[2]
-             sheetname[f"F{list_with_value["YTDLATECHARGEPAID"]+2}"] = row[3]
+            if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["YTDLATECHARGEPAID"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["YTDLATECHARGEPAID"]+2}"] = defaultvalue(row[3])
+            else:
+                sheetname[f"A{list_with_value["YTDLATECHARGEPAID"]+1}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["YTDLATECHARGEPAID"]+1}"] = defaultvalue(row[3])
         if updateException(row[4])=='Y' and updateException(row[5])=='Y':
-             sheetname[f"A{list_with_value["YTDLATECHARGEPAID"]+3}"] = row[4]
-             sheetname[f"F{list_with_value["YTDLATECHARGEPAID"]+3}"] = row[5]
+            if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["YTDLATECHARGEPAID"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["YTDLATECHARGEPAID"]+3}"] = defaultvalue(row[5])
+            else:
+                sheetname[f"A{list_with_value["YTDLATECHARGEPAID"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["YTDLATECHARGEPAID"]+3}"] = defaultvalue(row[5])
         if updateException(row[6])=='Y' and updateException(row[7])=='Y':
-             sheetname[f"A{list_with_value["YTDLATECHARGEPAID"]+4}"] = row[6]
-             sheetname[f"F{list_with_value["YTDLATECHARGEPAID"]+4}"] = row[7]
+            if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["YTDLATECHARGEPAID"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["YTDLATECHARGEPAID"]+4}"] = defaultvalue(row[7])
+            else:
+                sheetname[f"A{list_with_value["YTDLATECHARGEPAID"]+3}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["YTDLATECHARGEPAID"]+3}"] = defaultvalue(row[7])
          #balance the exception 
         sheetname[f"H{list_with_value["YTDLATECHARGEPAID"]+1}"] = F"= {list_with_variance["YTDLATECHARGEPAID"]}-{f"F{list_with_value["YTDLATECHARGEPAID"]+1}"}-{f"F{list_with_value["YTDLATECHARGEPAID"]+2}"}-{f"F{list_with_value["YTDLATECHARGEPAID"]+3}"}" 
 
         sheetname[f"H{list_with_value["YTDLATECHARGEPAID"]+1}"].number_format = formattingAmount 
-        
+    
+    elif row[0]=="YTDTAXES":
+        if updateException(row[1])=='Y':
+            sheetname[f"A{list_with_value["YTDTAXES"]+1}"] = "Loans with YTD Taxes balances not converting"
+            sheetname[f"F{list_with_value["YTDTAXES"]+1}"] = defaultvalue(row[1])
+        if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+            if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["YTDTAXES"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["YTDTAXES"]+2}"] = defaultvalue(row[3])
+            else:
+                sheetname[f"A{list_with_value["YTDTAXES"]+1}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["YTDTAXES"]+1}"] = defaultvalue(row[3]) 
+        if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+            if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["YTDTAXES"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["YTDTAXES"]+3}"] = defaultvalue(row[5])
+            else:
+                sheetname[f"A{list_with_value["YTDTAXES"]+2}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["YTDTAXES"]+2}"] = defaultvalue(row[5])
+        if updateException(row[6])=='Y' and updateException(row[7])=='Y':
+            if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["YTDTAXES"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["YTDTAXES"]+4}"] = defaultvalue(row[7])
+            else:
+                sheetname[f"A{list_with_value["YTDTAXES"]+3}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["YTDTAXES"]+3}"] = defaultvalue(row[7])
+         #balance the exception 
+        sheetname[f"H{list_with_value["YTDTAXES"]+1}"] = F"= {list_with_variance["YTDTAXES"]}-{f"F{list_with_value["YTDTAXES"]+1}"}-{f"F{list_with_value["YTDTAXES"]+2}"}-{f"F{list_with_value["YTDTAXES"]+3}"}" 
+
+        sheetname[f"H{list_with_value["YTDTAXES"]+1}"].number_format = formattingAmount 
+
+    elif row[0]=="YTDPOINTSPAID":
+        if updateException(row[1])=='Y':
+            sheetname[f"A{list_with_value["YTDPOINTSPAID"]+1}"] = "Loans with YTD points paid balances not converting"
+            sheetname[f"F{list_with_value["YTDPOINTSPAID"]+1}"] = defaultvalue(row[1])
+        if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+            if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["YTDPOINTSPAID"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["YTDPOINTSPAID"]+2}"] = defaultvalue(row[3])
+            else:
+                sheetname[f"A{list_with_value["YTDPOINTSPAID"]+1}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["YTDPOINTSPAID"]+1}"] = defaultvalue(row[3])
+        if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+            if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["YTDPOINTSPAID"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["YTDPOINTSPAID"]+3}"] = defaultvalue(row[5])
+            else:
+                sheetname[f"A{list_with_value["YTDPOINTSPAID"]+2}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["YTDPOINTSPAID"]+2}"] = defaultvalue(row[5])
+        if updateException(row[6])=='Y' and updateException(row[7])=='Y':
+            if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["YTDPOINTSPAID"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["YTDPOINTSPAID"]+4}"] = defaultvalue(row[7])
+            else:
+                sheetname[f"A{list_with_value["YTDPOINTSPAID"]+3}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["YTDPOINTSPAID"]+3}"] = defaultvalue(row[7])
+         #balance the exception 
+        sheetname[f"H{list_with_value["YTDPOINTSPAID"]+1}"] = F"= {list_with_variance["YTDPOINTSPAID"]}-{f"F{list_with_value["YTDPOINTSPAID"]+1}"}-{f"F{list_with_value["YTDPOINTSPAID"]+2}"}-{f"F{list_with_value["YTDPOINTSPAID"]+3}"}" 
+
+        sheetname[f"H{list_with_value["YTDPOINTSPAID"]+1}"].number_format = formattingAmount 
+
+    elif row[0]=="YTDPMIPAID":
+        if updateException(row[1])=='Y':
+            sheetname[f"A{list_with_value["YTDPMIPAID"]+1}"] = "Loans with YTD PMI paid balances not converting"
+            sheetname[f"F{list_with_value["YTDPMIPAID"]+1}"] = defaultvalue(row[1])
+        if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+            if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["YTDPMIPAID"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["YTDPMIPAID"]+2}"] = defaultvalue(row[3])
+            else:
+                sheetname[f"A{list_with_value["YTDPMIPAID"]+1}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["YTDPMIPAID"]+1}"] = defaultvalue(row[3])
+        if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+            if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["YTDPMIPAID"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["YTDPMIPAID"]+3}"] = defaultvalue(row[5])
+            else:
+                sheetname[f"A{list_with_value["YTDPMIPAID"]+2}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["YTDPMIPAID"]+2}"] = defaultvalue(row[5])
+        if updateException(row[6])=='Y' and updateException(row[7])=='Y':
+            if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["YTDPMIPAID"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["YTDPMIPAID"]+4}"] = defaultvalue(row[7])
+            else:
+                sheetname[f"A{list_with_value["YTDPMIPAID"]+3}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["YTDPMIPAID"]+3}"] = defaultvalue(row[7])
+         #balance the exception 
+        sheetname[f"H{list_with_value["YTDPMIPAID"]+1}"] = F"= {list_with_variance["YTDPMIPAID"]}-{f"F{list_with_value["YTDPMIPAID"]+1}"}-{f"F{list_with_value["YTDPMIPAID"]+2}"}-{f"F{list_with_value["YTDPMIPAID"]+3}"}" 
+
+        sheetname[f"H{list_with_value["YTDPMIPAID"]+1}"].number_format = formattingAmount 
+
     elif row[0]=="SHADOWACCOUNTINGIPTP":
         if updateException(row[1])=='Y':
-            sheetname[f"F{list_with_value["SHADOWACCOUNTINGIPTP"]+1}"] = row[1]
+            sheetname[f"A{list_with_value["SHADOWACCOUNTINGIPTP"]+1}"] = "Loans with Shadow balances not converting"
+            sheetname[f"F{list_with_value["SHADOWACCOUNTINGIPTP"]+1}"] = defaultvalue(row[1])
         if updateException(row[2])=='Y' and updateException(row[3])=='Y':
-             sheetname[f"A{list_with_value["SHADOWACCOUNTINGIPTP"]+2}"] = row[2]
-             sheetname[f"F{list_with_value["SHADOWACCOUNTINGIPTP"]+2}"] = row[3]
+            if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["SHADOWACCOUNTINGIPTP"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["SHADOWACCOUNTINGIPTP"]+2}"] = defaultvalue(row[3])
+            else:
+                sheetname[f"A{list_with_value["SHADOWACCOUNTINGIPTP"]+1}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["SHADOWACCOUNTINGIPTP"]+1}"] = defaultvalue(row[3])
         if updateException(row[4])=='Y' and updateException(row[5])=='Y':
-             sheetname[f"A{list_with_value["SHADOWACCOUNTINGIPTP"]+3}"] = row[4]
-             sheetname[f"F{list_with_value["SHADOWACCOUNTINGIPTP"]+3}"] = row[5]
+            if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["SHADOWACCOUNTINGIPTP"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["SHADOWACCOUNTINGIPTP"]+3}"] = defaultvalue(row[5])
+            else:
+                sheetname[f"A{list_with_value["SHADOWACCOUNTINGIPTP"]+2}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["SHADOWACCOUNTINGIPTP"]+2}"] = defaultvalue(row[5])
         if updateException(row[6])=='Y' and updateException(row[7])=='Y':
-             sheetname[f"A{list_with_value["SHADOWACCOUNTINGIPTP"]+4}"] = row[6]
-             sheetname[f"F{list_with_value["SHADOWACCOUNTINGIPTP"]+4}"] = row[7]
+            if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["SHADOWACCOUNTINGIPTP"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["SHADOWACCOUNTINGIPTP"]+4}"] = defaultvalue(row[7])
+            else:
+                sheetname[f"A{list_with_value["SHADOWACCOUNTINGIPTP"]+3}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["SHADOWACCOUNTINGIPTP"]+3}"] = defaultvalue(row[7])
          #balance the exception 
         sheetname[f"H{list_with_value["SHADOWACCOUNTINGIPTP"]+1}"] = F"= {list_with_variance["SHADOWACCOUNTINGIPTP"]}-{f"F{list_with_value["SHADOWACCOUNTINGIPTP"]+1}"}-{f"F{list_with_value["SHADOWACCOUNTINGIPTP"]+2}"}-{f"F{list_with_value["SHADOWACCOUNTINGIPTP"]+3}"}" 
 
         sheetname[f"H{list_with_value["SHADOWACCOUNTINGIPTP"]+1}"].number_format = formattingAmount 
    
+    elif row[0]=="FOREBEARANCEBALANCE":
+        if updateException(row[1])=='Y':
+            sheetname[f"A{list_with_value["FOREBEARANCEBALANCE"]+1}"] = "Loans with YTD forebearance balances not converting"
+            sheetname[f"F{list_with_value["FOREBEARANCEBALANCE"]+1}"] = defaultvalue(row[1])
+        if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+            if updateException(row[1])=='Y':
+                sheetname[f"A{list_with_value["FOREBEARANCEBALANCE"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["FOREBEARANCEBALANCE"]+2}"] = defaultvalue(row[3])
+            else:
+                sheetname[f"A{list_with_value["FOREBEARANCEBALANCE"]+2}"] = row[2].capitalize()
+                sheetname[f"F{list_with_value["FOREBEARANCEBALANCE"]+2}"] = defaultvalue(row[3])
+        if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+            if updateException(row[2])=='Y' and updateException(row[3])=='Y':
+                sheetname[f"A{list_with_value["FOREBEARANCEBALANCE"]+3}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["FOREBEARANCEBALANCE"]+3}"] = defaultvalue(row[5])
+            else:
+                sheetname[f"A{list_with_value["FOREBEARANCEBALANCE"]+2}"] = row[4].capitalize()
+                sheetname[f"F{list_with_value["FOREBEARANCEBALANCE"]+2}"] = defaultvalue(row[5])
+        if updateException(row[6])=='Y' and updateException(row[7])=='Y':
+            if updateException(row[4])=='Y' and updateException(row[5])=='Y':
+                sheetname[f"A{list_with_value["FOREBEARANCEBALANCE"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["FOREBEARANCEBALANCE"]+4}"] = defaultvalue(row[7])
+            else:
+                sheetname[f"A{list_with_value["FOREBEARANCEBALANCE"]+4}"] = row[6].capitalize()
+                sheetname[f"F{list_with_value["FOREBEARANCEBALANCE"]+4}"] = defaultvalue(row[7])
+         #balance the exception 
+        sheetname[f"H{list_with_value["FOREBEARANCEBALANCE"]+1}"] = F"= {list_with_variance["FOREBEARANCEBALANCE"]}-{f"F{list_with_value["FOREBEARANCEBALANCE"]+1}"}-{f"F{list_with_value["FOREBEARANCEBALANCE"]+2}"}-{f"F{list_with_value["FOREBEARANCEBALANCE"]+3}"}" 
+
+        sheetname[f"H{list_with_value["FOREBEARANCEBALANCE"]+1}"].number_format = formattingAmount 
+        
 
 cursor.close()
 conn.close()
@@ -1296,10 +1897,10 @@ cursor = conn.cursor()
 
 sheets = wb.sheetnames  
 oldsheetmajor = ""
-print("-->>> ", sheets) 
+print("-->>> ", sheets)  
  
 
-queryloop = "SELECT * FROM developer.tbl_query where reqyn='Y'"
+queryloop = keys['loanqueryExceptions']
 cursor.execute(queryloop)
 ListofException = cursor.fetchall()
 
@@ -1319,11 +1920,13 @@ for x in range(len(ListofException)):
     
      print(f"retrieveQueryparameters >>>>>>>  {retrieveQueryparameters} ")
      exceptionTitle = retrieveQueryparameters[3]
-     print(f"retrieveQueryparameters >>>>>>>creating the ws title>>>  {exceptionTitle} ")
+     sumcolumnNo = retrieveQueryparameters[5] -1
+     print(f"retrieveQueryparameters >>>>>>>creating the ws title>>>  {exceptionTitle}  >>>>sumcolumnNo >>> {sumcolumnNo}")
 
      #loop through exception worksheet to justify  
      for xcell in range(1,len(sheets)):
         key = sheets[xcell].strip() 
+        print(f"key ==>>>{key}")
 
         match = re.search(retrieveQueryparameters[1], # major from tbl query
                             key.upper()) #exception sheet title 
@@ -1345,6 +1948,7 @@ for x in range(len(ListofException)):
                 sheettab = wb[sheets[xcell]] # get the desired sheet name
                 maxColumn=sheettab.max_column
                 columnheader_count = len(columns)
+                
                
                 
 
@@ -1353,26 +1957,34 @@ for x in range(len(ListofException)):
                     print("------here---check late charge & ytd late charge ")
                     continue
                 
-                print(f"maxcolum of >>>>>>>> {sheettab.title} >>maxColumn>>  {maxColumn} columnheader count >>> {len(columns)} ")
+                print(f"maxcolum of >>>>>>>> {sheettab.title} >>maxColumn>>  {maxColumn} columnheader count >>> {len(columns)} >>> alphabet[sumcolumnNo-1] >>> {alphabet[sumcolumnNo-1]}")
         
                 if maxColumn > 1:
                     oldsheetmajor_count=2
                     print("oldsheetmajor_count>>>" + str(oldsheetmajor_count))
- 
+
                  #UPDATE WORKBOOK TITLES 
                 if oldsheetmajor_count == 0:
-                    sheettab.merge_cells("A1:Q1") 
+                    cell_start = maxColumn-1
+                    #cell_end=maxColumn+len(columns) 
+                    cell_end=len(columns)-1 
+                    sheettab.merge_cells(f"{alphabet[cell_start]}1:{alphabet[cell_end]}1") 
                     sheettab['A1'] = exceptionTitle 
                     sheettab['A1'].alignment =alignment
                     sheettab['A1'].font =bold_font
+                    #placeholder 
+                    placeholderColumnToSum = alphabet[sumcolumnNo]
                 else:
                     print(f"aphabet>>>>  {alphabet[maxColumn]} ")
-                    cell_start = maxColumn+2
+                    #cell_start = maxColumn+1
+                    cell_start = maxColumn
                     cell_end=maxColumn+len(columns)
-                    sheettab.merge_cells(f"{alphabet[cell_start]}1:{alphabet[cell_end]}1") 
+                    sheettab.merge_cells(f"{alphabet[cell_start]}1:{alphabet[cell_end-1]}1") 
                     sheettab[f'{alphabet[cell_start]}1'] = exceptionTitle 
                     sheettab[f'{alphabet[cell_start]}1'].alignment =alignment
                     sheettab[f'{alphabet[cell_start]}1'].font =bold_font
+                    #placeholder 
+                    placeholderColumnToSum = alphabet[cell_start+sumcolumnNo]
 
                     
 
@@ -1382,7 +1994,8 @@ for x in range(len(ListofException)):
                     if maxColumn==1:
                         sheettab.cell(row=2, column=col_num, value=column_title)
                     else:
-                        sheettab.cell(row=2, column=col_num+maxColumn+oldsheetmajor_count, value=column_title)
+                        #sheettab.cell(row=2, column=col_num+maxColumn+oldsheetmajor_count, value=column_title)
+                        sheettab.cell(row=2, column=col_num+maxColumn, value=column_title)
 
 
             # Write data rows to the Excel sheet
@@ -1391,7 +2004,20 @@ for x in range(len(ListofException)):
                         if maxColumn==1:
                             sheettab.cell(row=row_num+1, column=col_num, value=cell_value)
                         else:
-                            sheettab.cell(row=row_num+1, column=col_num+maxColumn+oldsheetmajor_count, value=cell_value)
+                            #sheettab.cell(row=row_num+1, column=col_num+maxColumn+oldsheetmajor_count, value=cell_value)
+                            sheettab.cell(row=row_num+1, column=col_num+maxColumn, value=cell_value)
+                
+             #sum the column to get exception 
+                maxrow = sheettab.max_row 
+                print(f"placeholderColumnToSum >>> {placeholderColumnToSum} >>>>> maxrow>>>> {maxrow}  >>>alphabet[cell_end+1]>>>>>> {alphabet[cell_end+1]}")
+                if maxColumn==1:
+                    sheettab[f'{alphabet[cell_end+1]}2'] = f"=sum({placeholderColumnToSum}3:{placeholderColumnToSum}{maxrow})"
+                    sheettab[f'{alphabet[cell_end+1]}2'].font=color_font
+                    sheettab[f'{alphabet[cell_end+1]}2'].number_format = formattingAmount  
+                else:
+                    sheettab[f'{alphabet[cell_end]}2'] = f"=sum({placeholderColumnToSum}3:{placeholderColumnToSum}{maxrow})"
+                    sheettab[f'{alphabet[cell_end]}2'].font=color_font
+                    sheettab[f'{alphabet[cell_end]}2'].number_format = formattingAmount 
             
 cursor.close()
 conn.close() 
